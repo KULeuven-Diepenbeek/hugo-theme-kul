@@ -21,6 +21,9 @@ cd themes/
 git clone https://github.com/kuleuven-diepenbeek/hugo-theme-kul.git
 ```
 
+You'll need at least Hugo `0.8+`. 
+
+
 ## Usage
 
 
@@ -108,3 +111,37 @@ Done!
 Licensed under MIT, the same license as the theme is built upon. See `LICENSE.md`.
 
 
+## Auto-committing generated HTML files
+
+
+You can use GitHub workflows to kickstart Hugo to generate and commit the `/docs` folder in case you employ GitHub pages as the course homepage. 
+
+This is an example workflow, adapted from the "appdev-course" repository. Save in `.github/workflows/main.yml`:
+
+```
+name: CI
+
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Generate hugo
+        run: |
+          cd $GITHUB_WORKSPACE
+          ./hugo
+
+      - name: commit generated hugo stuff
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Hugo regen
+```
+
+This requires you to **Check in the "hugo" Linux x65 binary** into the root (or otherwise) folder of your repository! 
