@@ -1,0 +1,21 @@
+# theme.toml template for a Hugo theme
+# See https://github.com/spf13/hugoThemes#themetoml for an example
+
+name = "LearnKUL"
+license = "MIT"
+licenselink = "https://github.com/kuleuven-diepenbeek/hugo-theme-kul/blob/master/LICENSE.md"
+description = "Documentation theme for Hugo, based on Hugo Theme Learn"
+homepage = "https://github.com/kuleuven-diepenbeek/hugo-theme-learn/"
+repo = "https://github.com/kuleuven-diepenbeek/hugo-theme-learn"
+tags = ["documentation", "grav", "learn", "doc", "search"]
+features = ["documentation", "menu", "nested sections", "search", "mermaid"]
+min_version = 0.1
+
+[author]
+  name = "KU Leuven Campus Diepenbeek"
+  homepage = "https://www.kuleuven.be/"
+
+[original]
+  name = "Grav Learn"
+  homepage = "https://learn.getgrav.org/"
+  repo = "https://github.com/getgrav/grav-learn"
