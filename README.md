@@ -29,6 +29,7 @@ You'll need at least Hugo `0.8+`.
 
 See the [hugo-theme-learn documentation](https://learn.netlify.app/en/). Everything available in that theme is also present here. 
 
+Also included: [Mathjax Support](https://www.mathjax.org/) out-of-the-box.
 
 ### Notice blocks
 
