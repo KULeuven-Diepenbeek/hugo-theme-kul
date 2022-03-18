@@ -14,14 +14,18 @@ Take a look at the theme in action:
 
 ## Installation
 
-Navigate to your themes folder in your Hugo site and use the following commands:
+**Pre-requirement**: you'll need at least Hugo `0.8+`. 
+
+In the root of your course repository folder:
+
 
 ```shell
-cd themes/
-git clone https://github.com/kuleuven-diepenbeek/hugo-theme-kul.git
+git submodule add https://github.com/KULeuven-Diepenbeek/hugo-theme-kul themes/hugo-theme-kul/
 ```
 
-You'll need at least Hugo `0.8+`. 
+This will create a folder `hugo-theme-kul` in `themes`.
+
+To select the theme, in your `config.toml`, set `theme = "hugo-theme-kul"`. Menus and other options can be configured there as well. See the [hugo-theme-learn documentation](https://learn.netlify.app/en/)
 
 
 ## Usage
