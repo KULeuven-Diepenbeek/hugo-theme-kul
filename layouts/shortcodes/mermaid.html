@@ -1,2 +1,11 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
-<div class="mermaid" align="{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}">{{ safeHTML .Inner }}</div>
+<script defer src="{{"mermaid/mermaid.min.js" | relURL}}">
+	mermaid.initialize({
+		startOnLoad: true,
+		flowchart: {
+			useMaxWidth: true
+		}
+	});
+</script>
+<div class="mermaid" align="{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}" >
+	{{ safeHTML .Inner  }}
+</div>
