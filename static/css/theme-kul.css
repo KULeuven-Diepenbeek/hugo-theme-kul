@@ -1,17 +1,123 @@
 
-:root{
+/* ---------------- custom style below */
 
+video {
+    max-width:  100%;
+}
+
+#body img {
+    margin: 1rem auto !important;
+}
+
+figcaption {
+    text-align: center;
+    font-style: italic;
+}
+
+#body figure {
+    margin: 3rem auto;
+}
+
+
+#uhlogo {
+    width: 165px;
+    -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+    filter: invert(100%);    
+}
+
+#chapter p {
+    text-align: justify;
+}
+
+div.ex {
+    margin: 2rem 0;
+    position: relative;
+}
+
+div.ex p {
+    margin: 0;
+}
+
+div.ex .inner {
+    padding: 15px;
+    display: block;
+    font-size: 1rem;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    color: #666;
+    border-top: 30px solid #F0B37E;
+    background: #FFF2DB;
+}
+
+div.ex .inner:first-child:before {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f085";
+    left: 10px;
+}
+
+div.ex .inner:first-child:after {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    left: 2rem;
+    content: 'Exercise !';
+}
+
+#sidebar #shortcuts h3 {
+    color: grey !important;
+}
+
+#sidebar h3 {
+    font-family: "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    color: white;
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+/* begin VlJo */
+div.todo {
+    background-color: red;
+    color: yellow;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+div.multicolumn {
+    display: flex;
+    justify-content: space-around;
+}
+
+div.multicolumn div.column{
+    width: 48%;
+}
+
+div.solution b {
+    padding-left: 5%;
+}
+div.solution p {
+    padding-left: 10%;
+}
+
+/* end VlJo */
+
+
+/* ---------------- custom style from theme below */
+ 
+:root{
+    
     --MAIN-TEXT-color:#323232; /* Color of text by default */
     --MAIN-TITLES-TEXT-color: #5e5e5e; /* Color of titles h2-h3-h4-h5 */
     --MAIN-LINK-color:#1C90F3; /* Color of links */
     --MAIN-LINK-HOVER-color:#167ad0; /* Color of hovered links */
     --MAIN-ANCHOR-color: #1C90F3; /* color of anchors on titles */
 
-    --MENU-HOME-LINK-color: #323232; /* Color of the home button text */
-    --MENU-HOME-LINK-HOVER-color: #5e5e5e; /* Color of the hovered home button text */
-
-    --MENU-HEADER-BG-color:#1C90F3; /* Background color of menu header */
-    --MENU-HEADER-BORDER-color:#33a1ff; /*Color of menu header border */
+    --MENU-HEADER-BG-color:#01407A; /* Background color of menu header */
+    --MENU-HEADER-BORDER-color:#54BCEB; /*Color of menu header border */ 
 
     --MENU-SEARCH-BG-color:#167ad0; /* Search field background color (by default borders + icons) */
     --MENU-SEARCH-BOX-color: #33a1ff; /* Override search field border color */
@@ -26,7 +132,7 @@
 
     --MENU-VISITED-color: #33a1ff; /* Color of 'page visited' icons in menu */
     --MENU-SECTION-HR-color: #20272b; /* Color of <hr> separator in menu */
-
+    
 }
 
 body {
@@ -103,26 +209,4 @@ a:hover {
 
 #sidebar hr {
     border-color: var(--MENU-SECTION-HR-color);
-}
-
-#body .tags a.tag-link {
-    background-color: var(--MENU-HEADER-BG-color);
-}
-
-#body .tags a.tag-link:before {
-    border-right-color: var(--MENU-HEADER-BG-color);
-}
-
-#homelinks {
-  background: var(--MENU-HEADER-BG-color);
-  background-color: var(--MENU-HEADER-BORDER-color);
-  border-bottom-color: var(--MENU-HEADER-BORDER-color);
-}
-
-#homelinks a {
-  color: var(--MENU-HOME-LINK-color);
-}
-
-#homelinks a:hover {
-  color: var(--MENU-HOME-LINK-HOVERED-color);
 }
