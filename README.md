@@ -32,6 +32,15 @@ Here's a quick video on how to get it up and running, including creating a new H
 
 [![](https://cdn.loom.com/sessions/thumbnails/bc09f573e76c48af90c6843144f011e2-with-play.gif)](https://www.loom.com/share/bc09f573e76c48af90c6843144f011e2)
 
+In short, from scratch:
+
+1. `hugo new site mycourse`
+2. `cd mycourse && git init`
+3. `git submodule add https://github.com/KULeuven-Diepenbeek/hugo-theme-kul themes/hugo-theme-kul/`
+4. Edit the `config.toml` file to add `theme = 'hugo-theme-kul'`
+5. Add your contents in the `/contents` folder and test at `http://localhost:1313` with `hugo serve`!
+6. Generate HTML files: `hugo` -- output in `/docs`. Upload wherever you want. 
+
 
 ## Usage
 
