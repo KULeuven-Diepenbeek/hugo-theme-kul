@@ -28,6 +28,11 @@ This will create a folder `hugo-theme-kul` in `themes`.
 To select the theme, in your `config.toml`, set `theme = "hugo-theme-kul"`. Menus and other options can be configured there as well. See the [hugo-theme-learn documentation](https://learn.netlify.app/en/)
 
 
+Here's a quick video on how to get it up and running, including creating a new Hugo website:
+
+[![](https://cdn.loom.com/sessions/thumbnails/bc09f573e76c48af90c6843144f011e2-with-play.gif)](https://www.loom.com/share/bc09f573e76c48af90c6843144f011e2)
+
+
 ## Usage
 
 
