@@ -14,9 +14,11 @@ Take a look at the theme in action:
 
 ## Installation
 
-**Pre-requirement**: you'll need at least Hugo `0.8+`. 
+**Pre-requirement**: you'll need at least Hugo `0.8+` (the **extended** edition). Download at https://gohugo.io/getting-started/quick-start/ 
 
-In the root of your course repository folder:
+Add the Hugo binary to your local `$PATH` (e.g. `/usr/local/bin`). 
+
+If you create a **NEW** course, in the root of your course repository folder:
 
 
 ```shell
@@ -24,6 +26,16 @@ git submodule add https://github.com/KULeuven-Diepenbeek/hugo-theme-kul themes/h
 ```
 
 This will create a folder `hugo-theme-kul` in `themes`.
+
+If you checkout an **existing** course with a submodule, execute the following:
+
+```shell
+git submodule sync
+git submodule update --init --recursive
+```
+
+This will fill the folder `hugo-theme-kul` which is otherwise empty.
+
 
 To select the theme, in your `config.toml`, set `theme = "hugo-theme-kul"`. Menus and other options can be configured there as well. See the [hugo-theme-learn documentation](https://learn.netlify.app/en/)
 
