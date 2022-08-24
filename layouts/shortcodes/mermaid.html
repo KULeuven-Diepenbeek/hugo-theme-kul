@@ -1,11 +1,4 @@
-<script defer src="{{"mermaid/mermaid.min.js" | relURL}}">
-	mermaid.initialize({
-		startOnLoad: true,
-		flowchart: {
-			useMaxWidth: true
-		}
-	});
-</script>
+<!-- mermaid init in footer.js -->
 <div class="mermaid" align="{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}" >
 	{{ safeHTML .Inner  }}
 </div>
