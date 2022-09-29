@@ -131,11 +131,27 @@ Produces the following visualization:
 
 1. Install the `website2pdf` node plugin (`npm install website2pdf`)
 2. Run the local Hugo server (`hugo serve`)
-3. In a separate terminal, run the website2pdf tool by providing the correct sitemap URL: `npx website2pdf --sitemapUrl "http://localhost:1313/appdev-course/sitemap.xml`
+3. In a separate terminal, run the website2pdf tool by providing the correct sitemap URL: `npx website2pdf --sitemapUrl "http://localhost:1313/appdev-course/sitemap.xml"`
 4. Paste every generated PDF file together using ImageMagick: `convert -density 100 $(ls *pdf) ../output.pdf`.
 
 Done!
 
+**Got errors on output?**
+
+If you see something like
+
+```
+│ /db-course/nosql/keyvaluestores/ │ w2pdf_output/db-course/nosql/keyvaluestores/2. Key/value stores :: Databases.pdf │ ERROR   │
+node:internal/streams/destroy:205
+  const r = stream._readableState;
+                   ^
+
+TypeError: Cannot read properties of undefined (reading '_readableState')
+    at errorOrDestroy (node:internal/streams/destroy:205:20)
+    at node:internal/streams/readable:504:15
+```
+
+Then check the `title` tag of the corresponding Markdown file---it should **not contain a slash** (`/`) as w2pdf is fooled into thinking it'll be written in a subdirectory. In the above example, the title was "Key/Value stores", making "Key" a root dir. Change this to for example `-` to fix it. 
 
 ## License
 
