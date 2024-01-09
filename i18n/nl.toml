@@ -27,3 +27,6 @@ other = "Lees meer..."
 
 [BinaryPrefix-kilobyte]
 other = "kb"
+
+[Contents]
+other = "Inhoud"

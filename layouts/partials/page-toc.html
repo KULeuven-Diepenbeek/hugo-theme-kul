@@ -1,0 +1,19 @@
+{{ define "toc-nested" }}
+{{ if .ctx.Params.autonumbering }}<ol>{{else}}<ul>{{end}}
+  {{ range .hd.Headings }}
+  <li>
+    <a href="#{{ .ID }}">{{ .Title }}</a>
+    {{ if .Headings }} {{ template "toc-nested" (dict "ctx" $.ctx "hd" .) }} {{ end }}
+  </li>
+  {{ end }}
+{{ if .ctx.Params.autonumbering }}</ol>{{else}}</ul>{{end}}
+{{ end }}
+
+{{ if .Params.toc }}
+<aside class="toc" {{ if .Params.autonumbering }} autonumbering {{ end }}>
+  <h2>{{ i18n "On-this-page"}}</h2>
+  {{ range .Fragments.Headings }} 
+    {{ template "toc-nested"  (dict "ctx" $ "hd" .) }}
+  {{ end }}
+</aside>
+{{ end }}

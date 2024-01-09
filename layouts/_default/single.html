@@ -1,6 +1,8 @@
 {{ partial "header.html" . }}
 
+<article class='content' {{- if .Param "autonumbering" }} autonumbering {{- end }}>
 {{ .Content }}
+</article>
 
 <footer class="footline">
 	{{with .Params.LastModifierDisplayName}}

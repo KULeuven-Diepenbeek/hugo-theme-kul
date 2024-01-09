@@ -1,7 +1,9 @@
 {{ partial "header.html" . }}
 
 {{ if eq .Kind "section" }}
+<article class='content' {{- if .Param "autonumbering" }} autonumbering {{- end }}>
 	{{ .Content }}
+</article>
 {{end}}
 
 {{ if or (eq .Kind "taxonomy") (eq .Kind "term") }}

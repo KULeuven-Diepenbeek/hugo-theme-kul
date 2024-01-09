@@ -27,3 +27,6 @@ other = "Expand me..."
 
 [BinaryPrefix-kilobyte]
 other = "kb"
+
+[On-this-page]
+other = "On this page"

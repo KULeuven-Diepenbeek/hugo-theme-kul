@@ -1,0 +1,46 @@
+body {
+  counter-reset: h2counter;
+}
+h2 {
+  counter-reset: h3counter;
+}
+h3 {
+  counter-reset: h4counter;
+}
+h4 {
+  counter-reset: h5counter;
+}
+
+article.content[autonumbering] h2::before {
+  counter-increment: h2counter;
+  content: counter(h2counter) ". ";
+}
+article.content[autonumbering] h3::before {
+  counter-increment: h3counter;
+  content: counter(h2counter) "." counter(h3counter) ". ";
+}
+article.content[autonumbering] h4::before {
+  counter-increment: h4counter;
+  content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) ". ";
+}
+
+.toc {
+  font-size: 13px;
+}
+
+.toc[autonumbering] ol {
+  counter-reset: item;
+}
+
+.toc[autonumbering] ol > li {
+  counter-increment: item;
+}
+
+.toc[autonumbering] ol ol > li {
+  display: block;
+}
+
+.toc[autonumbering] ol ol > li:before {
+  content: counters(item, ".") ". ";
+  margin-left: -20px;
+}

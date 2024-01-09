@@ -1,5 +1,3 @@
 <div class="progress">
-    <div class="wrapper">
-{{ .TableOfContents }}
-    </div>
+  <div class="wrapper toc" {{- if .Param "autonumbering" }} autonumbering {{- end }}>{{ .TableOfContents }}</div>
 </div>
