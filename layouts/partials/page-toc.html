@@ -2,7 +2,7 @@
 {{ if .ctx.Params.autonumbering }}<ol>{{else}}<ul>{{end}}
   {{ range .hd.Headings }}
   <li>
-    <a href="#{{ .ID }}">{{ .Title }}</a>
+    <a href="#{{ .ID }}">{{ .Title | safeHTML }}</a>
     {{ if .Headings }} {{ template "toc-nested" (dict "ctx" $.ctx "hd" .) }} {{ end }}
   </li>
   {{ end }}
