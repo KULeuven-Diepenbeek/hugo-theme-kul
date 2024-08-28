@@ -1,0 +1,145 @@
+:root {
+    --kul-primary-blue: rgb(29, 141, 176);
+    --kul-secondary-blue: rgb(220, 231, 240);
+    --kul-tertiary-blue1: rgb(82, 189, 236);
+    --kul-tertiary-blue2: rgb(30, 110, 135);
+    --kul-tertiary-blue3: rgb(12, 73, 92);
+    --kul-accent-1: rgb(135, 192, 189);
+    --kul-accent-2: rgb(231, 176, 55);
+    --kul-accent-3: rgb(156, 166, 90);
+    --kul-accent-4: rgb(228, 218, 62);
+    --kul-accent-5: rgb(184, 208, 212);
+    --kul-accent-6: rgb(176, 159, 118);
+    --kul-accent-7: rgb(212, 119, 110);
+    --kul-accent-8: rgb(203, 182, 16);
+    --kul-accent-9: rgb(170, 121, 130);
+    --kul-accent-10: rgb(199, 147, 174);
+    --kul-accent-11: rgb(212, 216, 66);
+    --kul-accent-12: rgb(186, 113, 60);
+
+    --kul-accent-blue: var(--kul-accent-1);
+    --kul-accent-orange: var(--kul-accent-2);
+    --kul-accent-green: var(--kul-accent-3);
+    --kul-accent-yellow: var(--kul-accent-4);
+    --kul-accent-red: var(--kul-accent-7);
+    --kul-accent-purple: var(--kul-accent-10);
+
+    --PRIMARY-color: var(--kul-primary-blue); /* brand primary color */
+    --SECONDARY-color: var(--kul-primary-blue); /* brand secondary color */
+
+    --MAIN-TEXT-color: black; /* Color of text by default */
+    --MAIN-TITLES-TEXT-color: var(
+        --kul-tertiary-blue2
+    ); /* Color of titles h2-h3-h4-h5-h6 */
+    --MAIN-TITLES-H1-color: var(
+        --kul-tertiary-blue3
+    ); /* text color of h1 titles */
+    --MAIN-TITLES-H2-color: var(--kul-tertiary-blue3);
+    --MAIN-TITLES-H3-color: var(--kul-tertiary-blue2);
+    --MAIN-LINK-color: var(--kul-primary-blue); /* Color of links */
+    --MAIN-LINK-HOVER-color: var(
+        var(--kul-tertiary-blue2)
+    ); /* Color of hovered links */
+    --MAIN-BG-color: white; /* color of text by default */
+
+    --CODE-theme: relearn-light; /* name of the chroma stylesheet file */
+    --CODE-BLOCK-color: rgba(
+        39,
+        40,
+        34,
+        1
+    ); /* fallback text color of block code; should be adjusted to your selected chroma style */
+    --CODE-BLOCK-BG-color: rgba(
+        250,
+        250,
+        250,
+        1
+    ); /* fallback background color of block code; should be adjusted to your selected chroma style */
+    --CODE-BLOCK-BORDER-color: rgba(
+        210,
+        210,
+        210,
+        1
+    ); /* border color of block code */
+
+    --CODE-INLINE-color: black; /* color for inline code text */
+    --CODE-INLINE-BG-color: color-mix(
+        in srgb,
+        var(--kul-secondary-blue),
+        #fff 75%
+    ); /* color for inline code background */
+    --CODE-INLINE-BORDER-color: color-mix(
+        in srgb,
+        var(--kul-secondary-blue),
+        #fff 25%
+    ); /* color of inline code border */
+
+    --MENU-HOME-LINK-color: rgba(
+        45,
+        54,
+        63,
+        1
+    ); /* Color of the home button text */
+    --MENU-HOME-LINK-HOVER-color: rgba(
+        0,
+        0,
+        0,
+        1
+    ); /* Color of the hovered home button text */
+
+    --MENU-HEADER-BG-color: transparent; /* Background color of menu header */
+    --MENU-HEADER-BORDER-color: transparent; /*Color of menu header border */
+
+    --MENU-SEARCH-color: black; /* Color of search field text */
+    --MENU-SEARCH-BG-color: white; /* Search field background color (by default borders + icons) */
+    --MENU-SEARCH-BORDER-color: var(
+        --kul-secondary-blue
+    ); /* Override search field border color */
+
+    --MENU-SECTIONS-ACTIVE-BG-color: var(
+        --kul-secondary-blue
+    ); /* Background color of the active section and its children */
+    --MENU-SECTIONS-BG-color: rgba(
+        134,
+        134,
+        134,
+        0.066
+    ); /* Background color of other sections */
+    --MENU-SECTIONS-LINK-color: var(
+        --kul-tertiary-blue3
+    ); /* Color of links in menu */
+    --MENU-SECTIONS-LINK-HOVER-color: var(
+        --kul-tertiary-blue2
+    ); /* Color of links in menu, when hovered */
+    --MENU-SECTION-ACTIVE-CATEGORY-color: white; /* Color of active category text */
+    --MENU-SECTION-ACTIVE-CATEGORY-BG-color: var(
+        --kul-primary-blue
+    ); /* Color of background for the active category (only) */
+    --MENU-SECTION-SEPARATOR-color: rgba(
+        210,
+        210,
+        210,
+        0.66
+    ); /* separator color between menu sections and menu footer */
+
+    --MENU-VISITED-color: rgba(
+        28,
+        144,
+        243,
+        1
+    ); /* Color of 'page visited' icons in menu */
+
+    /* base styling for boxes */
+    --BOX-CAPTION-color: rgba(255, 255, 255, 1); /* color of the title text */
+    --BOX-BG-color: rgba(
+        255,
+        255,
+        255,
+        0.833
+    ); /* background color of colored boxes */
+    --BOX-TEXT-color: rgba(16, 16, 16, 1); /* fixed color of the content text */
+
+    --BOX-BLUE-color: var(--kul-accent-blue);
+    --BOX-ORANGE-color: var(--kul-accent-orange);
+    --BOX-RED-color: var(--kul-accent-red);
+}

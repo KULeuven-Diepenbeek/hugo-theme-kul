@@ -31,6 +31,11 @@
     permalinkable = false
     noUgly = true
 
+[params]
+  themeVariant = 'kul'
+  mermaidInitialize = "{ \"theme\": \"base\", \"themeVariables\": { \"primaryBorderColor\": \"#1d8db0\",  \"primaryTextColor\": \"#0c495c\", \"primaryColor\": \"#dce7f0\" } }"
+  mermaidZoom = true
+
 [params.relearn.dependencies]
   [params.relearn.dependencies.mathjax]
     name = "MathJax"
@@ -38,3 +43,10 @@
     name = "Mermaid"
   [params.relearn.dependencies.openapi]
     name = "OpenApi"
+
+[markup.goldmark.extensions.passthrough]
+  enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+  block = [['\[', '\]'], ['$$', '$$']]
+  inline = [['\(', '\)'], ['$', '$']]
