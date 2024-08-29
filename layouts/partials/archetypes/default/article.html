@@ -1,7 +1,7 @@
 {{- $page := .page }}
 {{- $content := .content }}
 {{- with $page }}
-          <article class="default">
+          <article class="default" {{- if .Param "autonumbering" }} autonumbering {{- end }}>
             <header class="headline">
               {{- partial "content-header.html" . }}
             </header>
