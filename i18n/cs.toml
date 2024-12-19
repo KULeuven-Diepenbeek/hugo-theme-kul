@@ -46,7 +46,7 @@ other = "Vytisknout kapitolu"
 [More-action]
 other = "Více"
 
-[Shortcuts-Title]
+[shortcuts-menuTitle]
 other = "Více"
 
 [Expand-title]
@@ -123,3 +123,6 @@ other = "Kategorie"
 
 [category]
 other = "Kategorie"
+
+[Details]
+other = "Podrobnosti"

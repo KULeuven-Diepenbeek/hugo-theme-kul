@@ -46,7 +46,7 @@ other = "Print whole chapter"
 [More-action]
 other = "More"
 
-[Shortcuts-Title]
+[shortcuts-menuTitle]
 other = "More"
 
 [Expand-title]
@@ -126,3 +126,6 @@ other = "Category"
 
 [On-this-page]
 other = "On this page"
+
+[Details]
+other = "Details"

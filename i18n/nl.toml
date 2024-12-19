@@ -46,7 +46,7 @@ other = "Het hele hoofdstuk afdrukken"
 [More-action]
 other = "Snelkoppelingen"
 
-[Shortcuts-Title]
+[shortcuts-menuTitle]
 other = "Snelkoppelingen"
 
 [Expand-title]
@@ -126,3 +126,6 @@ other = "Categorie"
 
 [On-this-page]
 other = "Op deze pagina"
+
+[Details]
+other = "Details"

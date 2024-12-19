@@ -1,5 +1,5 @@
 +++
-aliases = "/cont/icons"
+categories = ["howto", "reference"]
 description = "Nice icons for your page"
 title = "Icon"
 +++
@@ -11,8 +11,6 @@ The `icon` shortcode displays icons using the [Font Awesome](https://fontawesome
 {{% icon skull-crossbones %}}
 
 ## Usage
-
-While the examples are using shortcodes with positional parameter you are free to also call this shortcode from your own partials.
 
 {{< tabs groupid="shortcode-parameter">}}
 {{% tab title="shortcode" %}}
@@ -74,7 +72,7 @@ Font Awesome provides many ways to modify the icon
 - Rotate
 - Combine with other icons
 
-Check the full documentation on [web fonts with CSS](https://fontawesome.com/how-to-use/web-fonts-with-css) for more.
+Check the full documentation on [web fonts with CSS](https://docs.fontawesome.com/web/style/styling) for more.
 
 ## Examples
 

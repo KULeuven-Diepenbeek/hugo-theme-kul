@@ -1,4 +1,5 @@
 +++
+categories = ["howto", "reference"]
 description = "Expandable/collapsible sections of text"
 title = "Expand"
 +++
@@ -21,9 +22,15 @@ That's some more text with a footnote.[^someid]
 
 ## Usage
 
-While the examples are using shortcodes with named parameter you are free to use positional as well or also call this shortcode from your own partials.
-
 {{< tabs groupid="shortcode-parameter">}}
+{{% tab title="callout" %}}
+
+````md
+> [!transparent]- Expand me...
+> Thank you!
+````
+
+{{% /tab %}}
 {{% tab title="shortcode" %}}
 
 ````go
@@ -50,6 +57,12 @@ While the examples are using shortcodes with named parameter you are free to use
 
 {{% /tab %}}
 {{< /tabs >}}
+
+[Extended callout syntax](https://gohugo.io/render-hooks/blockquotes/#extended-syntax) is available in other Markdown parsers like Obsidian and therefore is the recommend syntax for generating portable Markdown.
+
+The [`notice` shortcode](shortcodes/notice) is also capable of displaying expandable/collapsible sections of text but with additional parameter for color and additional icons.
+
+The theme supports Hugo’s built-in [`details` shortcode](https://gohugo.io/content-management/shortcodes/#details) by mapping the parameter to the theme's `expand` shortcode.
 
 ### Parameter
 

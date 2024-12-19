@@ -46,7 +46,7 @@ other = "Mencetak seluruh bab"
 [More-action]
 other = "Lainnya"
 
-[Shortcuts-Title]
+[shortcuts-menuTitle]
 other = "Lainnya"
 
 [Expand-title]
@@ -123,3 +123,6 @@ other = "Kategori"
 
 [category]
 other = "Kategori"
+
+[Details]
+other = "Rincian"
