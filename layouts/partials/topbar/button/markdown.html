@@ -2,21 +2,21 @@
 {{- $onwidthm := cond (isset . "onwidthm") .onwidthm "show" }}
 {{- $onwidthl := cond (isset . "onwidthl") .onwidthl "show" }}
 {{- with .page }}
-	{{- $format := .OutputFormats.Get "print" }}
-	{{- $show := and $format (not (.Param "disablePrintButton")) }}
+	{{- $format := .OutputFormats.Get "markdown" }}
+	{{- $show := and $format (not (.Param "disableMarkdownButton")) }}
 	{{- if $show }}
 		{{- $show = not (partial "_relearn/pageIsSpecial.gotmpl" .) }}
 	{{- end }}
 	{{- if $show }}
 		{{- partial "topbar/func/button.html" (dict
 			"page" .
-			"class" "topbar-button-print"
+			"class" "topbar-button-markdown"
 			"href" $format.RelPermalink
-			"icon" "print"
+			"icon" "fa-fw fab fa-markdown"
 			"onwidths" $onwidths
 			"onwidthm" $onwidthm
 			"onwidthl" $onwidthl
-			"hint" (printf "%s (CTRL+ALT+p)" (T "Print-this-chapter"))
+			"hint" (T "Show-Markdown")
 		)}}
 	{{- end }}
 {{- end }}

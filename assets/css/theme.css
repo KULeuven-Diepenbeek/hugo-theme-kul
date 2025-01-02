@@ -1443,11 +1443,16 @@ div.highlight .copy-to-clipboard-button {
     display: block;
   }
 }
+div.highlight:focus-within .copy-to-clipboard-button,
+div.highlight .copy-to-clipboard-button:active,
 div.highlight:hover .copy-to-clipboard-button {
   display: block;
 }
 .disableHoverBlockCopyToClipBoard div.highlight .copy-to-clipboard-button {
   display: block;
+}
+.force-display {
+  display: block !important;
 }
 
 div.highlight > div table + .copy-to-clipboard-button > i,
@@ -1479,7 +1484,7 @@ pre:not(.mermaid) .copy-to-clipboard-button:hover {
   color: var(--INTERNAL-CODE-BLOCK-BG-color);
 }
 
-.disableInlineCopyToClipboard span > code.copy-to-clipboard-code + span.copy-to-clipboard-button {
+.disableInlineCopyToClipboard span > code.copy-to-clipboard-code + .copy-to-clipboard-button {
   display: none;
 }
 
@@ -1821,6 +1826,7 @@ html[dir='rtl'] .expand[open] > .box-label > i.expander-icon {
 
 /* anchors */
 .anchor {
+  background-color: transparent;
   color: var(--INTERNAL-MAIN-LINK-color);
   cursor: pointer;
   font-size: 0.5em;
