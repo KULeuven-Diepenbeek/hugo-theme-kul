@@ -348,7 +348,7 @@ a:focus,
 
 #R-sidebar .nav-title {
   color: var(--INTERNAL-MENU-SECTIONS-LINK-color);
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-variation-settings: var(--INTERNAL-MAIN-TITLES-H1-font-variation-settings);
   font-weight: var(--INTERNAL-MAIN-TITLES-H1-font-weight);
   font-family: var(--INTERNAL-MAIN-TITLES-H1-font);
@@ -640,7 +640,7 @@ kbd {
 
 h1 {
   color: var(--INTERNAL-MAIN-TITLES-H1-TEXT-color);
-  font-size: 3.25rem;
+  font-size: 2.25rem;
   font-variation-settings: var(--INTERNAL-MAIN-TITLES-H1-font-variation-settings);
   font-weight: var(--INTERNAL-MAIN-TITLES-H1-font-weight);
   font-family: var(--INTERNAL-MAIN-TITLES-H1-font);
@@ -715,7 +715,7 @@ h3 {
 
 h4 {
   color: var(--INTERNAL-MAIN-TITLES-H4-TEXT-color);
-  font-size: 1.85rem;
+  font-size: 1.55rem;
   font-variation-settings: var(--INTERNAL-MAIN-TITLES-H4-font-variation-settings);
   font-weight: var(--INTERNAL-MAIN-TITLES-H4-font-weight);
   font-family: var(--INTERNAL-MAIN-TITLES-H4-font);

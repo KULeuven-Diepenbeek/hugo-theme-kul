@@ -31,18 +31,18 @@ aside.toc {
     padding: 0.5rem;
 }
 
-.toc[autonumbering] h2 {
+aside.toc h2 {
     font-size: 1rem;
     font-weight: 300;
     margin: 0;
     margin-bottom: 0.5rem;
 }
-.toc[autonumbering] h2::before {
+aside.toc[autonumbering] h2::before {
     counter-increment: none;
     content: none;
 }
 
-.toc[autonumbering] ol {
+aside.toc[autonumbering] ol {
     counter-reset: item;
     margin-top: 0px;
     margin-bottom: 0px;
