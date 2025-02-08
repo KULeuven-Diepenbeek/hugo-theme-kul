@@ -1,0 +1,4 @@
+{{- $minWidth := .Get "min" | default "300px" -}}
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax({{ $minWidth }}, 1fr)); align-items: center; gap: 2rem">
+  {{.Inner}}
+</div>
