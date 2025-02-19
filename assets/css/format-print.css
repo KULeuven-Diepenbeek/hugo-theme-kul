@@ -43,8 +43,20 @@ pre:not(.mermaid) {
     visibility: visible;
   }
 }
-#R-body .copy-to-clipboard-button {
+#R-body .copy-to-clipboard-code {
+  padding-inline-end: 2px;
+}
+#R-body .inline-copy-to-clipboard-button,
+#R-body .block-copy-to-clipboard-button {
   display: none;
+}
+
+#R-body .inline-copy-to-clipboard-button + code.copy-to-clipboard-code,
+#R-body code.copy-to-clipboard-code:has(+ .inline-copy-to-clipboard-button) {
+  border-end-end-radius: 2px;
+  border-start-end-radius: 2px;
+  border-inline-end-width: 1px;
+  margin-inline-end: 0;
 }
 
 #R-body .svg-reset-button {
@@ -189,7 +201,7 @@ article {
   width: 100%;
 }
 
-#R-body #R-body-inner > .flex-block-wrapper article.narrow p {
+#R-body #R-body-inner > .flex-block-wrapper article.narrow > p {
   font-size: 1.015625rem;
   text-align: start;
 }

@@ -13,6 +13,14 @@
     <link href="{{"css/theme.css" | relURL}}{{ $assetBusting }}" rel="stylesheet">
     
     {{- $themevariants := partialCached "_relearn/themeVariants.gotmpl" . }}
+    {{- $wrap := true }}
+    {{- if isset site.Params "highlightwrap" }}
+      {{- $wrap = site.Params.highlightWrap  }}
+    {{- end }}
+    {{- if isset .Params "highlightwrap" }}
+      {{- $wrap = .Params.highlightWrap }}
+    {{- end }}
+    {{- $disableInlineCopyToClipboard := site.Params.disableInlineCopyToClipBoard }}
     {{- $minify := not hugo.IsServer }}
     {{- if and (isset site.Params "minify") (ne site.Params.minify "") }}
       {{- $minify = site.Params.minify }}
@@ -28,6 +36,8 @@
       {{ printf "window.relearn.min = `%s`;" $min | safeJS }}
       window.relearn.disableAnchorCopy={{ printf "%t" (eq .Site.Params.disableAnchorCopy true) | safeJS }};
       window.relearn.disableAnchorScrolling={{ printf "%t" (eq .Site.Params.disableAnchorScrolling true) | safeJS }};
+      window.relearn.enableBlockCodeWrap={{ printf "%t" (eq $wrap true) | safeJS }};
+      window.relearn.disableInlineCopyToClipboard={{ printf "%t" (eq $disableInlineCopyToClipboard true) | safeJS }};
       {{ "// variant stuff" | safeJS }}
       {{- $quotedthemevariants := slice }}
       {{- range $themevariants }}

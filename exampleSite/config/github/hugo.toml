@@ -1,2 +1,4 @@
-baseURL = 'https://mcshelby.github.io/hugo-theme-relearn/'
+# Configuration to release this site on GitHub Pages
+
+baseURL = 'https://mcshelby.github.io/hugo-theme-relearn/exampleSite/'
 relativeURLs = false

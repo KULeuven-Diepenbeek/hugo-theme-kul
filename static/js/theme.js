@@ -62,14 +62,11 @@ function adjustContentWidth() {
   elc.style[dir_padding_end] = '' + end + 'px';
 }
 
-function throttle(func, limit) {
-  let inThrottle;
+let debounceTimeout;
+function debounce(func, delay) {
   return function (...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => func.apply(this, args), delay);
   };
 }
 
@@ -434,7 +431,7 @@ function initOpenapi(update, attrs) {
     const oi = document.createElement('iframe');
     oi.id = openapiIframeId;
     oi.classList.toggle('sc-openapi-iframe', true);
-    oi.srcdoc = '<!doctype html>' + '<html lang="' + lang + '" dir="' + (isRtl ? 'rtl' : 'ltr') + '" data-r-output-format="' + format + '" data-r-theme-variant="' + variant + '">' + '<head>' + '<link rel="stylesheet" href="' + window.themeUseOpenapi.css + '">' + '<link rel="stylesheet" href="' + relBasePath + `/css/swagger${min}.css` + assetBuster + '">' + '<link rel="stylesheet" href="' + relBasePath + '/css/swagger-' + swagger_theme + '.css' + assetBuster + '">' + '<link rel="stylesheet" href="' + theme + '">' + '</head>' + '<body>' + '<a class="relearn-expander" href="" onclick="return relearn_collapse_all()">Collapse all</a>' + '<a class="relearn-expander" href="" onclick="return relearn_expand_all()">Expand all</a>' + '<div id="relearn-swagger-ui"></div>' + '<script>' + 'function relearn_expand_all(){' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > button[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + 'function relearn_collapse_all(){' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > .model-box > .model > span > button[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + '</script>' + '</body>' + '</html>';
+    oi.srcdoc = '<!doctype html>' + '<html lang="' + lang + '" dir="' + (isRtl ? 'rtl' : 'ltr') + '" data-r-output-format="' + format + '" data-r-theme-variant="' + variant + '">' + '<head>' + '<link rel="stylesheet" href="' + window.themeUseOpenapi.css + '">' + '<link rel="stylesheet" href="' + relBasePath + `/css/swagger${min}.css` + assetBuster + '">' + '<link rel="stylesheet" href="' + relBasePath + '/css/swagger-' + swagger_theme + '.css' + assetBuster + '">' + '<link rel="stylesheet" href="' + theme + '">' + '</head>' + '<body>' + '<a class="relearn-expander" href="" onclick="return relearn_collapse_all()">Collapse all</a>' + '<a class="relearn-expander" href="" onclick="return relearn_expand_all()">Expand all</a>' + '<div id="relearn-swagger-ui"></div>' + '<script>' + 'function relearn_expand_all(){' + 'document.querySelectorAll( ".expand-operation[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".models-control[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > button[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + 'function relearn_collapse_all(){' + 'document.querySelectorAll( ".expand-operation[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".models-control[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > .model-box > .model > span > button[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + '</script>' + '</body>' + '</html>';
     oi.height = '100%';
     oi.width = '100%';
     oi.onload = function () {
@@ -538,7 +535,7 @@ function initAnchorClipboard() {
     return;
   }
 
-  document.querySelectorAll(':has(h1) :is(h2,h3,h4,h5,h6').forEach(function (element) {
+  document.querySelectorAll(':has(h1) :is(h2[id], h3[id], h4[id] , h5[id], h6[id])').forEach(function (element) {
     var url = encodeURI((document.location.origin == 'null' ? document.location.protocol + '//' + document.location.host : document.location.origin) + document.location.pathname);
     var link = url + '#' + element.id;
     var new_element = document.createElement('button');
@@ -657,6 +654,7 @@ function initCodeClipboard() {
     var inTable = inPre && code.parentNode.parentNode.tagName.toLowerCase() == 'td' && code.parentNode.parentNode.classList.contains('lntd');
     // avoid copy-to-clipboard for highlight shortcode in table lineno mode
     var isFirstLineCell = inTable && code.parentNode.parentNode.parentNode.querySelector('td:first-child > pre > code') == code;
+    var isBlock = inTable || inPre;
 
     if (!isFirstLineCell && (inPre || text.length > 5)) {
       code.classList.add('copy-to-clipboard-code');
@@ -671,14 +669,34 @@ function initCodeClipboard() {
         code.parentNode.replaceChild(span, code);
         code = clone;
       }
-      var button = document.createElement('button');
-      button.classList.add('copy-to-clipboard-button');
-      button.setAttribute('title', window.T_Copy_to_clipboard);
-      button.innerHTML = '<i class="far fa-copy"></i>';
-      button.addEventListener('mouseleave', function () {
-        this.removeAttribute('aria-label');
-        this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
-      });
+      var button = null;
+      if (isBlock || !window.relearn.disableInlineCopyToClipboard) {
+        button = document.createElement('button');
+        var buttonPrefix = isBlock ? 'block' : 'inline';
+        button.classList.add(buttonPrefix + '-copy-to-clipboard-button');
+        button.setAttribute('title', window.T_Copy_to_clipboard);
+        button.innerHTML = '<i class="far fa-copy"></i>';
+        button.addEventListener('mouseleave', function () {
+          this.removeAttribute('aria-label');
+          this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
+        });
+        if (isBlock) {
+          // we have to make sure, the button is visible while
+          // Clipboard.js is doing its magic
+          button.addEventListener('focus', function (ev) {
+            setTimeout(function () {
+              ev.target.classList.add('force-display');
+            }, 0);
+          });
+          button.addEventListener('blur', function (ev) {
+            this.removeAttribute('aria-label');
+            this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
+            setTimeout(function () {
+              ev.target.classList.remove('force-display');
+            }, 0);
+          });
+        }
+      }
       if (inTable) {
         var table = code.parentNode.parentNode.parentNode.parentNode.parentNode;
         table.dataset.code = text;
@@ -687,7 +705,7 @@ function initCodeClipboard() {
         var pre = code.parentNode;
         pre.dataset.code = text;
         var p = pre.parentNode;
-        // indented code blocks are missing the div
+        // html <pre><code> constructs and indented code blocks are missing the div
         while (p != document && (p.tagName.toLowerCase() != 'div' || !p.classList.contains('highlight'))) {
           p = p.parentNode;
         }
@@ -695,33 +713,30 @@ function initCodeClipboard() {
           var clone = pre.cloneNode(true);
           var div = document.createElement('div');
           div.classList.add('highlight');
+          if (window.relearn.enableBlockCodeWrap) {
+            div.classList.add('wrap-code');
+          }
           div.appendChild(clone);
           pre.parentNode.replaceChild(div, pre);
           pre = clone;
         }
-        // we have to make sure, the button is visible while
-        // Clipboard.js is doing its magic
-        button.addEventListener('focus', function (ev) {
-          setTimeout(function () {
-            ev.target.classList.add('force-display');
-          }, 0);
-        });
-        button.addEventListener('blur', function (ev) {
-          this.removeAttribute('aria-label');
-          this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
-          setTimeout(function () {
-            ev.target.classList.remove('force-display');
-          }, 0);
-        });
         pre.parentNode.insertBefore(button, pre.nextSibling);
       } else {
+        code.classList.add('highlight');
         code.dataset.code = text;
-        code.parentNode.insertBefore(button, code.nextSibling);
+        if (button) {
+          // #1022 fix for FF; see CSS for explanation
+          if (isRtl) {
+            code.parentNode.insertBefore(button, code.parentNode.firstChild);
+          } else {
+            code.parentNode.insertBefore(button, code.nextSibling);
+          }
+        }
       }
     }
   }
 
-  var clip = new ClipboardJS('.copy-to-clipboard-button', {
+  var clip = new ClipboardJS('.block-copy-to-clipboard-button, .inline-copy-to-clipboard-button', {
     text: function (trigger) {
       if (!trigger.previousElementSibling) {
         return '';
@@ -1323,7 +1338,7 @@ function initScrollPositionSaver() {
     if (!ticking) {
       window.requestAnimationFrame(function () {
         // #996 GC is so damn slow that we need further throttling
-        throttle(savePosition, 250);
+        debounce(savePosition, 200)();
         ticking = false;
       });
       ticking = true;
