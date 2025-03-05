@@ -1,62 +1,64 @@
 body {
-    counter-reset: h2counter;
+  counter-reset: h2counter;
 }
 h2 {
-    counter-reset: h3counter;
+  counter-reset: h3counter;
 }
 h3 {
-    counter-reset: h4counter;
+  counter-reset: h4counter;
 }
 h4 {
-    counter-reset: h5counter;
+  counter-reset: h5counter;
 }
 
 article[autonumbering] h2::before {
-    counter-increment: h2counter;
-    content: counter(h2counter) ". ";
+  counter-increment: h2counter;
+  content: counter(h2counter) '. ';
 }
 article[autonumbering] h3::before {
-    counter-increment: h3counter;
-    content: counter(h2counter) "." counter(h3counter) ". ";
+  counter-increment: h3counter;
+  content: counter(h2counter) '.' counter(h3counter) '. ';
 }
 article[autonumbering] h4::before {
-    counter-increment: h4counter;
-    content: counter(h2counter) "." counter(h3counter) "." counter(h4counter)
-        ". ";
+  counter-increment: h4counter;
+  content: counter(h2counter) '.' counter(h3counter) '.' counter(h4counter) '. ';
 }
 
 aside.toc {
-    font-size: 13px;
-    background-color: #f6f6f6;
-    padding: 0.5rem;
+  font-size: 13px;
+  background-color: #f6f6f6;
+  padding: 0.5rem;
 }
 
 aside.toc h2 {
-    font-size: 1rem;
-    font-weight: 300;
-    margin: 0;
-    margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
 aside.toc[autonumbering] h2::before {
-    counter-increment: none;
-    content: none;
+  counter-increment: none;
+  content: none;
 }
 
 aside.toc[autonumbering] ol {
-    counter-reset: item;
-    margin-top: 0px;
-    margin-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.toc[autonumbering] ol {
+  counter-reset: item;
 }
 
 .toc[autonumbering] ol > li {
-    counter-increment: item;
+  counter-increment: item;
 }
 
 .toc[autonumbering] ol ol > li {
-    display: block;
+  display: block;
 }
 
 .toc[autonumbering] ol ol > li:before {
-    content: counters(item, ".") ". ";
-    margin-left: -20px;
+  content: counters(item, '.') '. ';
+  margin-left: -20px;
 }
