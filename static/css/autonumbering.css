@@ -1,14 +1,20 @@
 body {
   counter-reset: h2counter;
-}
-h2 {
   counter-reset: h3counter;
-}
-h3 {
   counter-reset: h4counter;
-}
-h4 {
   counter-reset: h5counter;
+}
+article[autonumbering] h1 {
+  counter-set: h2counter 0;
+}
+article[autonumbering] h2 {
+  counter-set: h3counter 0;
+}
+article[autonumbering] h3 {
+  counter-set: h4counter 0;
+}
+article[autonumbering] h4 {
+  counter-set: h5counter 0;
 }
 
 article[autonumbering] h2::before {
