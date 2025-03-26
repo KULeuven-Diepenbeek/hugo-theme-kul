@@ -53,7 +53,25 @@ In short, from scratch:
 5. Add your contents in the `/contents` folder and test at `http://localhost:1313` with `hugo serve`!
 6. Generate HTML files: `hugo` -- output in `/docs`. Upload wherever you want. 
 
+### Delete if necessary
 
+1. Delete the relevant line from the `.gitmodules` file.
+2. Delete the relevant section from `.git/config`.
+3. Git add modifications to the above files.
+4. Run `git rm --cached path_to_submodule` (no trailing slash).
+5. Delete the submodule paths in `.git/submodule`
+6. Commit and delete the now untracked submodule files.
+(Or use deinit?)
+```
+0. $ mv a/submodule a/submodule_tmp
+1. $ git submodule deinit -f -- a/submodule
+2. $ rm -rf .git/modules/a/submodule
+3. $ git rm -f a/submodule
+# Note: a/submodule (no trailing slash)
+# or, if you want to leave it in your working tree and have done step 0
+3. $ git rm --cached a/submodule
+3bis. $ mv a/submodule_tmp a/submodule
+```
 ## Usage
 
 
