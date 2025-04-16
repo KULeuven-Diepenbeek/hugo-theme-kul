@@ -1,8 +1,8 @@
 +++
-categories = ["howto"]
-description = "Configure search and the search form"
-options = ["additionalContentLanguage", "disableSearch", "disableSearchIndex", "disableSearchPage", "searchIndexURL", "searchPageURL"]
-title = "Search"
+categories = ['howto']
+description = 'Configure search and the search form'
+options = ['additionalContentLanguage', 'disableSearch', 'disableSearchIndex', 'disableSearchPage', 'searchIndexURL', 'searchPageURL']
+title = 'Search'
 weight = 3
 +++
 
@@ -16,17 +16,19 @@ The theme offers three levels of search through the menu's search form:
 
 Each level requires the previous one to be enabled. If no search is configured, the search form won't appear.
 
+> [!note]
+> The search term will be [stored in the reader's browser](configuration/sitemanagement/storedinformation) as long as it is present.
+
 {{%badge style="cyan" icon="gears" title=" "%}}Option{{%/badge%}} All levels are enabled by default. Disable them in `hugo.toml`:
 
 - In-page search: `disableSearch=true`
 - Search popup: `disableSearchIndex=true`
 - Dedicated search page: `disableSearchPage=true`
 
-{{< multiconfig file=hugo >}}
-[params]
-  disableSearch = true
-  disableSearchIndex = true
-  disableSearchPage = true
+{{< multiconfig file=hugo section=params >}}
+disableSearch = true
+disableSearchIndex = true
+disableSearchPage = true
 {{< /multiconfig >}}
 
 {{%badge style="cyan" icon="gears" title=" "%}}Option{{%/badge%}} Default URLs can be changed with the following parameter
@@ -34,10 +36,9 @@ Each level requires the previous one to be enabled. If no search is configured, 
 - Search popup: `searchindex.js` set by `searchIndexURL`
 - Dedicated search page: `search/index.html` set by `searchPageURL`
 
-{{< multiconfig file=hugo >}}
-[params]
-  searchIndexURL = 'omnisearchindex.js'
-  searchPageURL = 'omnisearch'
+{{< multiconfig file=hugo section=params >}}
+searchIndexURL = 'omnisearchindex.js'
+searchPageURL = 'omnisearch'
 {{< /multiconfig >}}
 
 {{% notice note %}}
@@ -55,14 +56,14 @@ The [Lunr](https://lunrjs.com) search library doesn't support all languages of t
 - Persian
 - Polish
 - Swahili
+- Ukrainian
 
 ## Mixed Language Support
 
 {{%badge style="cyan" icon="gears" title=" "%}}Option{{%/badge%}} In case your page's content contains text in multiple languages (for example, you are writing a Piratish documentation for your English API), you can set those languages in `additionalContentLanguage` to broaden the search.
 
-{{< multiconfig file=hugo >}}
-[params]
-  additionalContentLanguage = [ "en" ]
+{{< multiconfig file=hugo section=params >}}
+additionalContentLanguage = [ "en" ]
 {{< /multiconfig >}}
 
 You can add multiple languages to this array.

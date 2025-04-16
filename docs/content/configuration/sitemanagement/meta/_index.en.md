@@ -1,21 +1,20 @@
 +++
-categories = ["howto"]
-description = "What site-wide meta information can be set"
-frontmatter = ["description"]
-options = ["author.email", "author.name"]
-title = "Meta Information"
-weight = 3
+categories = ['howto']
+description = 'What site-wide meta information can be set'
+frontmatter = ['description']
+options = ['author.email', 'author.name']
+title = 'Meta Information'
+weight = 4
 +++
 
 ## Site Author Information
 
 {{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} The theme uses author details in various parts of your site, like RSS feeds and meta tags.
 
-{{< multiconfig file=hugo >}}
-[params]
-  [params.author]
-    name = 'Santa Claus'
-    email = 'santa@example.com'
+{{< multiconfig file=hugo section=params >}}
+[author]
+  name = 'Santa Claus'
+  email = 'santa@example.com'
 {{< /multiconfig >}}
 
 ## Site Title

@@ -1,7 +1,7 @@
 +++
-categories = ["howto", "reference"]
-description = "Get value of site params"
-title = "SiteParam"
+categories = ['howto', 'reference']
+description = 'Get value of site params'
+title = 'SiteParam'
 +++
 
 The `siteparam` shortcode prints values of params contained in your `hugo.toml`.
@@ -62,10 +62,9 @@ To use formatted parameter, add this in your `hugo.toml`:
 
 Now values containing Markdown will be formatted correctly.
 
-{{< multiconfig file=hugo >}}
-[params]
-  [params.siteparam.test]
-    text = 'A **nested** parameter <b>with</b> formatting'
+{{< multiconfig file=hugo section=params >}}
+[siteparam.test]
+  text = 'A **nested** parameter <b>with</b> formatting'
 {{< /multiconfig >}}
 
 ```go

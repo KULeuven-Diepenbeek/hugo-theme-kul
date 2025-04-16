@@ -10,12 +10,12 @@
 # This is used for generating social media meta information for the opengraph
 # protocol and twitter cards.
 # If not set, the set value of your site's hugo.toml is used.
-images = [ 'images/hero.png' ]
+# images = [ 'images/hero.png' ]
 
 # The title of your page.
 # Default: not set
 # A page without a title is treated as a hidden page.
-title = 'Example Page'
+# title = 'Example Page'
 
 # The description of your page.
 # Default: not set
@@ -24,13 +24,13 @@ title = 'Example Page'
 # If not set, the set value of your site's hugo.toml is used for the html
 # meta tag, social media meta information for the opengraph protocol and
 # twitter cards.
-description = ''
+# description = ''
 
 # The page design to be used
 # Default: not set
 # This decides the layout of your page. The theme ships 'home', 'chapter' and
 # 'default'. If not set, 'default' is taken.
-type = ''
+# type = ''
 
 ###############################################################################
 # Relearn Theme
@@ -163,21 +163,19 @@ alwaysopen = ''
 collapsibleMenu = true
 
 # Define your own sidebar menus.
-# Default: the value used below
-# The sidebar menus are built from this parameter. If not set, the set value
-# of your site's hugo.toml is used and contains the below default.
 # Menus are written from the sidebar's top to buttom in the order given in
-# this array.
+# these arrays. If not set, the set value of your site's hugo.toml is used.
 # Each entry can contain the following keys:
-# - `type` is mandatory. Either `page` in case it should generate a tre from
-#    the page structure or `menu` in case it should generate a tree from a
-#    defined menu.
+# - `type` is mandatory. Either `page` in case it should generate a tree from
+#    the page structure, `menu` in case it should generate a tree from a
+#    defined menu, `custom` for arbitrary HTML snippets or `divider` for a
+#    horizontal ruler.
 # - `identifier` is mandatory. In case of `type=page`, anything can be used,
 #    in case of `type=menu` the `identifier` key must be identical to the
 #    key of the menu definition.
 # - `main`, boolean. If `true`, the first tree level is spaced more generous
 #    and the text is emphasized. Default: `true` for `type=page` and `false`
-#    for `type=menu`
+#    for `type=menu` and `type=custom`
 # - `disableTitle`, boolean. If `true`, there is no title above the tree.
 #    Default: `true` for `type=page` and `false` for `type=menu`. If a title
 #    should be used, in case of `type=page` it will be taken from the page's
@@ -186,11 +184,35 @@ collapsibleMenu = true
 #    from the menu `title` according to Hugo's documentation and if not set
 #    from the menu `name` and if this is not set form the page's `linkTitle`.
 # - `pageRef`, optional. In case of `type=page` this is the starting page's
-#   path. If not set, the home page will be used.
-sidebarmenus = [
-	{ type = 'page', identifier = 'home', main = true, disableTitle = true, pageRef = '' },
-	{ type = 'menu', identifier = 'shortcuts', main = false, disableTitle = false },
-]
+#    path. If not set, the home page will be used.
+# - `elements`, optional. In case of `type=custom` the list of elements to
+#    display. The theme shipps with the following predefined snippets which
+#    all accept the `icon` parameter to overwrite the default icon
+#    - languageswitcher: will display the language switcher
+#    - variantswitcher: will display the variant switcher
+#    - versionswitcher: will display the version switcher
+#    - historyclearer: will display a button to clear the history of visited links
+
+# The sidebar header menu.
+# Default: see notes
+# If not given, defaults to
+# - a home button if configured; if you redefine this, use a Hugo menu and a type=menu to replicate this
+# - a divider to separate from the sidebarmenus (depending on the configuration of the theme variant)
+sidebarheadermenus = ''
+
+# The main sidebar header.
+# Default: see notes
+# - the main page menu based on your content structure
+# - the shortcuts menu including the title if configured
+sidebarmenus = ''
+
+# The main sidebar header.
+# Default: see notes
+# - a divider to separate from the sidebarmenus if any of the following is configured
+# - the language switcher if multilingual is configured
+# - the variant switcher if multiple variants are configured
+# - the history clearer if you configured to mark visited pages
+sidebarfootermenus = ''
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Hidden pages

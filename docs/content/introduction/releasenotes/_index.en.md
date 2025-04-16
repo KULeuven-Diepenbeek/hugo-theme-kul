@@ -1,11 +1,14 @@
 +++
-alwaysopen = false
-categories = ["explanation"]
+categories = ['explanation']
 description = "What's new in this version"
-disableToc = false
 title = "What's New"
-type = "releasenotes"
+type = 'releasenotes'
 weight = 4
+
+[params]
+  alwaysopen = false
+  disableToc = false
+  minHugoVersion = '0.126.0'
 +++
 
 {{% pages showdivider="true" showhidden="true" hidevisible="true" showtitle="true" %}}

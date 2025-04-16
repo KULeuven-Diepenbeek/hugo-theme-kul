@@ -1,7 +1,7 @@
 +++
-description = "Reference of CommonMark and Markdown extensions"
-categories = ["howto", "reference"]
-title = "Markdown Syntax"
+categories = ['howto', 'reference']
+description = 'Reference of CommonMark and Markdown extensions'
+title = 'Markdown Syntax'
 weight = 4
 +++
 
@@ -436,6 +436,44 @@ Markdown will automatically number each of your items consecutively. This means,
   - [x] View
   - [x] Hear
   - [ ] Smell
+{{% /notice %}}
+
+### Tree
+
+{{% badge color="#7dc903" icon="fa-fw fas fa-puzzle-piece" %}}Relearn{{% /badge %}} You can add lists as a tree with configurable icons and colors.
+
+The name can be followed by an optional pipe (`|`) to define an icon and further optional pipe to define the icon's color.
+
+More details can be found in the [`tree` shortcode docs](shortcodes/tree).
+
+````md
+```tree
+- home | folder
+  - .config | folder
+  - My Documents | folder | gold
+    - index.html
+    - resume.odt | file-word | #df6f40
+  - Images | folder
+    - pic1.jpg
+    - pic2.jpg | file-image | secondary
+  - Code | folder
+    - home.php | fa-fw fab fa-php | #888cc4
+```
+````
+
+{{% notice style="code" icon="eye" title="Result" %}}
+```tree
+- home | folder
+  - .config | folder
+  - My Documents | folder | gold
+    - index.html
+    - resume.odt | file-word | #df6f40
+  - Images | folder
+    - pic1.jpg
+    - pic2.jpg | file-image | secondary
+  - Code | folder
+    - home.php | fa-fw fab fa-php | #888cc4
+```
 {{% /notice %}}
 
 ### Definitions

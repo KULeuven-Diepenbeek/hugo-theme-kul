@@ -1,7 +1,7 @@
 +++
-categories = ["howto", "reference"]
-description = "Show content in tabbed views"
-title = "Tabs"
+categories = ['howto', 'reference']
+description = 'Show content in tabbed views'
+title = 'Tabs'
 +++
 
 The `tabs` shortcode displays arbitrary content in an unlimited number of tabs.
@@ -104,6 +104,9 @@ Also follow the above link to see the parameter for a nested tab.
 See what happens to the tab views while you select different tabs.
 
 While pressing a tab of Group A switches all tab views of Group A in sync (if the tab is available), the tabs of Group B are left untouched.
+
+> [!note]
+> The selected tab will be [stored in the reader's browser](configuration/sitemanagement/storedinformation).
 
 {{< tabs >}}
 {{% tab title="Group A, Tab View 1" %}}

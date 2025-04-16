@@ -1,8 +1,8 @@
 +++
-categories = ["explanation", "howto"]
+categories = ['explanation', 'howto']
 description = "Learn how to customize your site's colors"
-options = ["themeVariant"]
-title = "Colors"
+options = ['themeVariant']
+title = 'Colors'
 weight = 2
 +++
 
@@ -43,9 +43,8 @@ The theme offers the recommended [advanced configuration mode](#theme-variant-ad
 
 Set `themeVariant` to your theme CSS file name:
 
-{{< multiconfig file=hugo >}}
-[params]
-  themeVariant = 'relearn-light'
+{{< multiconfig file=hugo section=params >}}
+themeVariant = 'relearn-light'
 {{< /multiconfig >}}
 
 Place your theme file in `assets/css` or `themes/hugo-theme-relearn/assets/css`. Name it `theme-*.css`.
@@ -54,22 +53,25 @@ In the above example, the path of your theme file must be `assets/css/theme-rele
 
 #### Multiple Variants
 
-To let the reader choose between multiple variants, set `themeVariant` like this:
+To let the reader choose between multiple variants by displaying a variant switcher, set `themeVariant` like this:
 
-{{< multiconfig file=hugo >}}
-[params]
-  themeVariant = [ 'relearn-light', 'relearn-dark' ]
+{{< multiconfig file=hugo section=params >}}
+themeVariant = [ 'relearn-light', 'relearn-dark' ]
 {{< /multiconfig >}}
 
 The first variant is the default, and a selector will appear if there's more than one.
+
+If you want to have more control, where the variant switcher is positioned or you want to configure a different icon, see the [chapter on sidebar configuration](configuration/sidebar/menus#defining-sidebar-menus).
+
+> [!note]
+> The selected theme variant will be [stored in the reader's browser](configuration/sitemanagement/storedinformation).
 
 #### Adjust to OS Settings
 
 Use the `auto` value to match OS light/dark settings. Usually it makes sense to set it in the first position and make it the default.
 
-{{< multiconfig file=hugo >}}
-[params]
-  themeVariant = [ 'auto', 'red' ]
+{{< multiconfig file=hugo section=params >}}
+themeVariant = [ 'auto', 'red' ]
 {{< /multiconfig >}}
 
 If you don't configure anything else, the theme will default to use `relearn-light` for light mode and `relearn-dark` for dark mode.
@@ -78,9 +80,8 @@ Default is `relearn-light` for light and `relearn-dark` for dark mode. These def
 
 You can override the default with `themeVariantAuto`:
 
-{{< multiconfig file=hugo >}}
-[params]
-  themeVariantAuto = [ 'learn', 'neon' ]
+{{< multiconfig file=hugo section=params >}}
+themeVariantAuto = [ 'learn', 'neon' ]
 {{< /multiconfig >}}
 
 ### Advanced {#theme-variant-advanced}
@@ -91,19 +92,17 @@ Like with the [multiple variants](#multiple-variants) option, you are defining y
 
 Again, in this case, the first variant is the default chosen on first view and a variant selector will be shown in the menu footer if the array contains more than one entry.
 
-{{< multiconfig file=hugo >}}
-[params]
-  themeVariant = [ 'relearn-light', 'relearn-dark' ]
+{{< multiconfig file=hugo section=params >}}
+themeVariant = [ 'relearn-light', 'relearn-dark' ]
 {{< /multiconfig >}}
 
 you now write it that way:
 
-{{< multiconfig file=hugo >}}
-[params]
-  [[params.themeVariant]]
-    identifier = 'relearn-light'
-  [[params.themeVariant]]
-    identifier = 'relearn-dark'
+{{< multiconfig file=hugo section=params >}}
+themeVariant = [
+  {identifier = 'relearn-light'},
+  {identifier = 'relearn-dark'}
+]
 {{< /multiconfig >}}
 
 The `identifier` option is mandatory and equivalent to the string in the first example. Further options can be configured, see the table below.
@@ -118,8 +117,7 @@ The `identifier` option is mandatory and equivalent to the string in the first e
 
 #### Example Configuration
 
-{{< multiconfig file=hugo >}}
-[params]
+{{< multiconfig file=hugo section=params >}}
 themeVariant = [
 	{ identifier = 'relearn-auto',  name = 'Relearn Light/Dark', auto = [] },
 	{ identifier = 'relearn-light'  },
@@ -162,12 +160,21 @@ In case you like a shipped variant but only want to tweak some aspects, you have
 
     Afterwards, put this in your `hugo.toml` to use your new variant:
 
-    {{< multiconfig file=hugo >}}
-    [params]
-      themeVariant = 'my-branding'
+    {{< multiconfig file=hugo section=params >}}
+    themeVariant = 'my-branding'
     {{< /multiconfig >}}
 
     In comparison to _copy and change_, this has the advantage that you profit from any adjustments to the `relearn-light` variant while keeping your modifications.
+
+### Non-standard Modifications
+
+You may feel tempted to add further modifications besides just setting CSS variables in your custom variant stylesheet.
+
+While this is possible, please note that due to the way the theme uses the variant files, the following will not work
+
+- `@font-face` rules - they need to be moved to `assets/css/fonts.css`, `assets/css/custom.css` or `layouts/partials/custom-header.html`
+- rules selecting the `html` element - replace `html` with `:root`
+
 
 ### React to Variant Switches in JavaScript
 

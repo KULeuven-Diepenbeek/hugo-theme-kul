@@ -1,11 +1,14 @@
 +++
-categories = ["tutorial"]
-description = "Initialize your website in a few simple steps"
-title = "Getting Started"
+categories = ['tutorial']
+description = 'Initialize your website in a few simple steps'
+title = 'Getting Started'
 weight = 1
 +++
 
 Here's how to start your new website. If you're new to Hugo, we recommend learning more about it in its excellent [starter's guide](https://gohugo.io/getting-started/).
+
+> [!note]
+> This quickstart is not meant for a production setup. In production you always want to use specific versions of the theme and Hugo. See the [upgrade page](introduction/upgrade) to learn how to obtain a specific version of the theme.
 
 ## Install Hugo
 

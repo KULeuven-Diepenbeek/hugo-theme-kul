@@ -1,8 +1,8 @@
 +++
-categories = ["howto"]
-description = "How to set up a multilingual site"
-options = ["disableLanguageSwitchingButton"]
-title = "Multilingual"
+categories = ['howto']
+description = 'How to set up a multilingual site'
+options = ['disableLanguageSwitchingButton']
+title = 'Multilingual'
 weight = 2
 +++
 
@@ -34,6 +34,7 @@ It supports many languages, including right-to-left languages.
 - Spanish
 - Swahili
 - Turkish
+- Ukrainian
 - Vietnamese
 {{% /expand %}}
 
@@ -63,25 +64,25 @@ Here's how to make your site multilingual using [translations by file name](http
 
 2. Duplicate your content files and add language codes to their file names:
 
-    ````plaintext
-    ├── content
-    │   ├── log
-    │   │   ├── first-day
-    |   |   |   ├── _index.en.md
-    |   |   |   └── _index.pir.md
-    │   │   ├── second-day
-    |   |   |   ├── index.en.md
-    |   |   |   └── index.pir.md
-    │   │   ├── third-day.en.md
-    │   │   ├── third-day.pir.md
-    │   │   ├── _index.en.md
-    │   │   └── _index.pir.md
-    │   ├── _index.en.md
-    │   └── _index.pir.md
-    ├── themes
-    │   └── hugo-theme-relearn
-    │       └── ...
-    └── hugo.toml
+    ````tree
+    - content | folder
+      - log | folder
+        - first-day | folder
+          - _index.en.md | fa-fw fab fa-markdown | secondary
+          - _index.pir.md | fa-fw fab fa-markdown | secondary
+        - second-day | folder
+          - index.en.md | fa-fw fab fa-markdown | secondary
+          - index.pir.md | fa-fw fab fa-markdown | secondary
+        - third-day.en.md | fa-fw fab fa-markdown | secondary
+        - third-day.pir.md | fa-fw fab fa-markdown | secondary
+        - _index.en.md | fa-fw fab fa-markdown | secondary
+        - _index.pir.md | fa-fw fab fa-markdown | secondary
+      - _index.en.md | fa-fw fab fa-markdown | secondary
+      - _index.pir.md | fa-fw fab fa-markdown | secondary
+    - themes | folder
+      - hugo-theme-relearn | folder
+        - ... | folder
+    - hugo.toml | file-alt | accent
     ````
 
 ## Translation by Content Directory
@@ -112,30 +113,30 @@ The theme also support [translations by content directory](https://gohugo.io/con
 
 2. Duplicate your content files into separate directories named by their language code:
 
-    ````plaintext
-    ├── content
-    │   ├── en
-    |   │   ├── log
-    |   │   │   ├── first-day
-    |   |   |   |   └── _index.md
-    |   │   │   ├── second-day
-    |   |   |   |   └── index.md
-    |   │   │   ├── third-day.md
-    |   │   │   └── _index.md
-    |   │   └── _index.md
-    │   ├── pir
-    |   │   ├── log
-    |   │   │   ├── first-day
-    |   |   |   |   └── _index.md
-    |   │   │   ├── second-day
-    |   |   |   |   └── index.md
-    |   │   │   ├── third-day.md
-    |   │   │   └── _index.md
-    |   │   └── _index.md
-    |   ├── themes
-    |   │   └── hugo-theme-relearn
-    |   │       └── ...
-    |   └── hugo.toml
+    ````tree
+      - content | folder
+        - en | folder
+          - log | folder
+            - first-day | folder
+              - _index.md | fa-fw fab fa-markdown | secondary
+            - second-day | folder
+              - index.md | fa-fw fab fa-markdown | secondary
+            - third-day.md | fa-fw fab fa-markdown | secondary
+            - _index.md | fa-fw fab fa-markdown | secondary
+          - _index.md | fa-fw fab fa-markdown | secondary
+        - pir | folder
+          - log | folder
+            - first-day | folder
+              - _index.md | fa-fw fab fa-markdown | secondary
+            - second-day | folder
+              - index.md | fa-fw fab fa-markdown | secondary
+            - third-day.md | fa-fw fab fa-markdown | secondary
+            - _index.md | fa-fw fab fa-markdown | secondary
+          - _index.md | fa-fw fab fa-markdown | secondary
+      - themes | folder
+        - hugo-theme-relearn | folder
+          - ... | folder
+      - hugo.toml | file-alt | accent
     ````
 
 
@@ -147,9 +148,10 @@ Check the [search configuration](configuration/sidebar/search#mixed-language-sup
 
 {{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} By default the theme shows a language switcher in the lower part of the menu.
 
+If you want to have more control, where the language switcher is positioned or you want to configure a different icon, see the [chapter on sidebar configuration](configuration/sidebar/menus#defining-sidebar-menus).
+
 To disable the language switcher set `disableLanguageSwitchingButton=true`
 
-{{< multiconfig file=hugo >}}
-[params]
-  disableLanguageSwitchingButton = true
+{{< multiconfig file=hugo section=params >}}
+disableLanguageSwitchingButton = true
 {{< /multiconfig >}}

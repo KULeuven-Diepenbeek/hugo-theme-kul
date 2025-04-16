@@ -1,5 +1,60 @@
 # Changelog
 
+## 7.6.1 (2025-03-30)
+
+### Enhancements
+
+- [**feature**] lists: unify list margins [#1080](https://github.com/McShelby/hugo-theme-relearn/issues/1080)
+- [**feature**] tree: reduce margin [#1079](https://github.com/McShelby/hugo-theme-relearn/issues/1079)
+- [**feature**] versioning: add unique class to warning [#1078](https://github.com/McShelby/hugo-theme-relearn/issues/1078)
+- [**feature**] clipboard: size inline code to fit surrounding text [#1077](https://github.com/McShelby/hugo-theme-relearn/issues/1077)
+
+---
+
+## 7.6.0 (2025-03-25)
+
+### Enhancements
+
+- [**feature**] cookieconsent: prepare theme and docs [#1070](https://github.com/McShelby/hugo-theme-relearn/issues/1070)
+- [**feature**] icon: add `style` and `color` options [#1068](https://github.com/McShelby/hugo-theme-relearn/issues/1068)
+- [**feature**] tree: add new shortcode [#1067](https://github.com/McShelby/hugo-theme-relearn/issues/1067)
+- [**feature**] switcher: reset selection after browser back navigation [#1065](https://github.com/McShelby/hugo-theme-relearn/issues/1065)
+- [**feature**] menu: make footer area configurable [#1059](https://github.com/McShelby/hugo-theme-relearn/issues/1059)
+- [**feature**] menu: make header area configurable [#1057](https://github.com/McShelby/hugo-theme-relearn/issues/1057)
+- [**feature**] theme: add version switcher [#1050](https://github.com/McShelby/hugo-theme-relearn/issues/1050)
+- [**feature**] taxonomy: respect user-defined boxstyle for term-list [#1047](https://github.com/McShelby/hugo-theme-relearn/issues/1047)
+- [**feature**] i18n: add Ukrainian translation [#1045](https://github.com/McShelby/hugo-theme-relearn/issues/1045)
+
+### Fixes
+
+- [**bug**] link: check fragments on same page [#1060](https://github.com/McShelby/hugo-theme-relearn/issues/1060)
+
+### Maintenance
+
+- [**task**] openapi: update swagger-ui to 5.20.1 [#1063](https://github.com/McShelby/hugo-theme-relearn/issues/1063)
+
+---
+
+## 7.5.0 (2025-03-04)
+
+### Enhancements
+
+- [**feature**][**change**] rtl: fix alignment of buttons [#1039](https://github.com/McShelby/hugo-theme-relearn/issues/1039)
+- [**feature**] code: add copy-to-clipboard to pre-only elements [#1036](https://github.com/McShelby/hugo-theme-relearn/issues/1036)
+
+### Fixes
+
+- [**bug**] code: fixing negative margin on inline clipboard [#1038](https://github.com/McShelby/hugo-theme-relearn/issues/1038)
+- [**bug**] tooltip: make font reliable [#1037](https://github.com/McShelby/hugo-theme-relearn/issues/1037)
+- [**bug**] code: avoid inline code to display above sticky table headers [#1035](https://github.com/McShelby/hugo-theme-relearn/issues/1035)
+
+### Maintenance
+
+- [**task**] openapi: update swagger-ui to 5.19.0 [#1041](https://github.com/McShelby/hugo-theme-relearn/issues/1041)
+- [**task**][**change**] theme: move dependencies from static to assets [#1040](https://github.com/McShelby/hugo-theme-relearn/issues/1040)
+
+---
+
 ## 7.4.1 (2025-02-19)
 
 ### Fixes
@@ -779,7 +834,7 @@
 
 ### Fixes
 
-- [**bug**] print: enable print for pages with _build options [#522](https://github.com/McShelby/hugo-theme-relearn/issues/522)
+- [**bug**] print: enable print for pages with build options [#522](https://github.com/McShelby/hugo-theme-relearn/issues/522)
 
 ---
 

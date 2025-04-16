@@ -1,7 +1,7 @@
 +++
-categories = ["tutorial"]
-description = "How to upgrade your Relearn site"
-title = "Upgrade"
+categories = ['tutorial']
+description = 'How to upgrade your Relearn site'
+title = 'Upgrade'
 weight = 2
 +++
 
@@ -10,6 +10,24 @@ Consider Hugo and the theme one unit. If you upgrade the theme, in many cases, y
 The [releasenotes of the theme](introduction/releasenotes) mention if a newer version of Hugo is required.
 
 Note, that it is only necessary to upgrade if you are experiencing fixed bugs or want to use new features. It is perfectly fine to stay with arbitrary old versions of Hugo and the theme if everything works for you.
+
+## Semver
+
+Recent releases of the theme follow the [semver standard](https://semver.org/).
+
+## Theme Repo Organization
+
+The `main` branch of the source code repo contains all versions with the development version at the HEAD. This means, pulling from the `main` branch may give you a beta version.
+
+As this is not suitable for production, the repository contains stable tags for each released version in the form of `7.2.1`.
+
+In addition, the repository contains floating tags for
+
+- the latest patch level release of a minor version in the form of `7.2.x`
+- the latest minor level release of a major version in the form of `7.x`
+- the latest major version in the form of `x`
+
+Choose a tag that best fits your needs.
 
 ## Planning the Upgrade
 
@@ -23,7 +41,7 @@ Note that these [hints may be removed after a while](https://gohugo.io/troublesh
 
 Say, you are using Relearn 4.0.1 and want to upgrade your project to the latest version (say 7.2.1):
 
-- find out the [last theme release of version 4](introduction/changelog/4) (which is 4.2.5) and the [required Hugo version](introduction/releasenotes/4) (at least 0.93.0, [taken from the releasenotes of version 3](introduction/releasenotes/3) as version 4 did not raise the Hugo version) and upgrade
+- find out the [last theme release of version 4](introduction/changelog/4) (which is 4.2.5) and the [required Hugo version](introduction/releasenotes/4) (at least 0.93.0) and upgrade
 - run `hugo server` and fix any errors
 - find out the [last theme release of version 5](introduction/changelog/5) (which is 5.27.0) and the [required Hugo version](introduction/releasenotes/5) (at least 0.121.0) and upgrade
 - run `hugo server` and fix any errors
@@ -43,11 +61,11 @@ Remove the old version of the theme by removing the `themes/hugo-theme-relearn` 
 
 Download the .zip archive of a certain version of the theme and unzip it into the `themes/hugo-theme-relearn` directory
 
-Eg. to upgrade to version 7.2.1 download from [https://github.com/McShelby/hugo-theme-relearn/releases/tag/7.2.1](https://github.com/McShelby/hugo-theme-relearn/releases/tag/7.2.1) 
+Eg. to upgrade to version 7.2.1 download from [https://github.com/McShelby/hugo-theme-relearn/releases/tag/7.2.1](https://github.com/McShelby/hugo-theme-relearn/releases/tag/7.2.1)
 
 ### Use Hugo's Module System
 
-Upgrade the Relearn theme using [Hugo's module system](https://gohugo.io/hugo-modules/use-modules/#upgrade-one-module) to a certain version.
+Upgrade the Relearn theme using [Hugo's module system](https://gohugo.io/hugo-modules/use-modules/#update-one-module) to a certain version.
 
 Eg. to upgrade to version 7.2.1
 

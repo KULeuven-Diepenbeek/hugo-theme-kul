@@ -1,7 +1,7 @@
 +++
-categories = ["reference"]
-description = "All configuration options for the Relearn theme"
-title = "Options Reference"
+categories = ['reference']
+description = 'All configuration options for the Relearn theme'
+title = 'Options Reference'
 weight = 6
 +++
 
@@ -13,9 +13,8 @@ Throughout the documentation, theme-specific options are marked with a {{% badge
 
 Add theme options to the `params` section of your `hugo.toml`. For example:
 
-{{< multiconfig file=hugo >}}
-[params]
-  math = true
+{{< multiconfig file=hugo section=params >}}
+math = true
 {{< /multiconfig >}}
 
 ## Index
