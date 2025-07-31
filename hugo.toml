@@ -1,6 +1,6 @@
 [module]
   [module.hugoVersion]
-    min = '0.140.2'
+    min = '0.126.3'
 
 [mediaTypes]
   [mediaTypes.'text/javascript']
@@ -53,6 +53,10 @@
     name = 'Mermaid'
   [params.relearn.dependencies.openapi]
     name = 'OpenApi'
+  [params.relearn.dependencies.search]
+    name = 'Search'
+  [params.relearn.dependencies.theme]
+    name = 'Theme'
 
 [markup.goldmark.extensions.passthrough]
   enable = true

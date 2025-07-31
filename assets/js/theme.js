@@ -171,6 +171,9 @@ function restoreTabSelections() {
 }
 
 function initMermaid(update, attrs) {
+  if (!window.relearn.themeUseMermaid) {
+    return;
+  }
   var doBeside = true;
   var isImageRtl = isRtl;
 
@@ -322,9 +325,7 @@ function initMermaid(update, attrs) {
     theme: getColorValue('MERMAID-theme'),
   };
 
-  var search;
   if (update) {
-    search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
     unmark();
   }
   var is_initialized = update ? update_func(attrs) : init_func(attrs);
@@ -367,18 +368,29 @@ function initMermaid(update, attrs) {
           });
           svg.call(zoom);
         });
+        // we need to mark again once the SVGs were drawn
+        // to mark terms inside an SVG;
+        // as we can not determine when all graphs are done,
+        // we debounce the call
+        debounce(mark, 200)();
       },
       querySelector: '.mermaid.mermaid-render',
       suppressErrors: true,
     });
   }
-  if (update && search && search.length) {
-    window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', search);
-    mark();
+  if (update) {
+    // if the page loads Mermaid but does not contain any
+    // graphs, we will not call the above debounced mark()
+    // and have to do it at least once here to redo our unmark()
+    // call from the beginning of this function
+    debounce(mark, 200)();
   }
 }
 
 function initOpenapi(update, attrs) {
+  if (!window.relearn.themeUseOpenapi) {
+    return;
+  }
   var state = this;
   if (update && !state.is_initialized) {
     return;
@@ -435,7 +447,7 @@ function initOpenapi(update, attrs) {
 <html lang="${lang}" dir="${isRtl ? 'rtl' : 'ltr'}" data-r-output-format="${format}" data-r-theme-variant="${variant}">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="${window.relearn.themeUseOpenapi.css}">
+    <link rel="stylesheet" href="${window.relearn.themeUseOpenapi.css}${assetBuster}">
     <link rel="stylesheet" href="${relBasePath}/css/swagger${min}.css${assetBuster}">
     <link rel="stylesheet" href="${relBasePath}/css/swagger-${swagger_theme}${min}.css${assetBuster}">
     <link rel="stylesheet" href="${theme}">
@@ -565,9 +577,10 @@ function initAnchorClipboard() {
     return;
   }
 
-  document.querySelectorAll(':has(h1) :is(h2[id], h3[id], h4[id] , h5[id], h6[id])').forEach(function (element) {
-    var url = encodeURI((document.location.origin == 'null' ? document.location.protocol + '//' + document.location.host : document.location.origin) + document.location.pathname);
-    var link = url + '#' + element.id;
+  document.querySelectorAll(':has(h1) :is(h2[id], h3[id], h4[id], h5[id], h6[id])').forEach(function (element) {
+    var origin = document.location.origin == 'null' ? `${document.location.protocol}//${document.location.host}` : document.location.origin;
+    var id = encodeURIComponent(element.id);
+    var link = `${origin}${document.location.pathname}#${id}`;
     var new_element = document.createElement('button');
     new_element.classList.add('anchor');
     if (!window.relearn.disableAnchorCopy) {
@@ -878,9 +891,7 @@ function initArrowHorizontalNav() {
 
   // button navigation
   var prev = document.querySelector('.topbar-button-prev a');
-  prev && prev.addEventListener('click', navPrev);
   var next = document.querySelector('.topbar-button-next a');
-  next && next.addEventListener('click', navNext);
 
   // keyboard navigation
   // avoid prev/next navigation if we are not at the start/end of the
@@ -1238,16 +1249,6 @@ function showPrint() {
   }
 }
 
-function navPrev() {
-  var e = document.querySelector('.topbar-button-prev a');
-  location.href = e && e.getAttribute('href');
-}
-
-function navNext() {
-  var e = document.querySelector('.topbar-button-next a');
-  location.href = e && e.getAttribute('href');
-}
-
 function initToc() {
   if (isPrint) {
     return;
@@ -1337,7 +1338,7 @@ function initExpand() {
 
 function clearHistory() {
   var visitedItem = window.relearn.absBaseUri + '/visited-url/';
-  for (var item in sessionStorage) {
+  for (var item in window.sessionStorage) {
     if (item.substring(0, visitedItem.length) === visitedItem) {
       window.relearn.removeItem(window.sessionStorage, item);
       var url = item.substring(visitedItem.length);
@@ -1356,7 +1357,7 @@ function initHistory() {
   window.relearn.setItem(window.sessionStorage, visitedItem + document.querySelector('body').dataset.url, 1);
 
   // loop through the sessionStorage and see if something should be marked as visited
-  for (var item in sessionStorage) {
+  for (var item in window.sessionStorage) {
     if (item.substring(0, visitedItem.length) === visitedItem && window.relearn.getItem(window.sessionStorage, item) == 1) {
       var url = item.substring(visitedItem.length);
       // in case we have `relativeURLs=true` we have to strip the
@@ -1426,9 +1427,9 @@ function scrollToPositions() {
   }
 
   var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-  if (search && search.length) {
-    search = regexEscape(search);
-    var found = elementContains(search, elc);
+  var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
+  if (words && words.length) {
+    var found = elementContains(words, elc);
     var searchedElem = found.length && found[0];
     if (searchedElem) {
       searchedElem.scrollIntoView();
@@ -1499,15 +1500,20 @@ const observer = new PerformanceObserver(function () {
 observer.observe({ type: 'navigation' });
 
 function mark() {
+  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
+  if (!words || !words.length) {
+    return;
+  }
+
   // mark some additional stuff as searchable
   var bodyInnerLinks = document.querySelectorAll('#R-body-inner a:not(.lightbox-link):not(.btn):not(.lightbox-back)');
   for (var i = 0; i < bodyInnerLinks.length; i++) {
     bodyInnerLinks[i].classList.add('highlight');
   }
 
-  var value = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
   var highlightableElements = document.querySelectorAll('.highlightable');
-  highlight(highlightableElements, value, { element: 'mark', className: 'search' });
+  highlight(highlightableElements, words, { element: 'mark', className: 'search' });
 
   var markedElements = document.querySelectorAll('mark.search');
   for (var i = 0; i < markedElements.length; i++) {
@@ -1548,21 +1554,12 @@ function highlight(es, words, options) {
   };
   Object.assign(settings, options);
 
-  if (!words) {
+  if (!words.length) {
     return;
   }
-  if (words.constructor === String) {
-    words = [words];
-  }
-  words = words.filter(function (word, i) {
-    return word != '';
-  });
   words = words.map(function (word, i) {
     return regexEscape(word);
   });
-  if (words.length == 0) {
-    return this;
-  }
 
   var flag = settings.caseSensitive ? '' : 'i';
   var pattern = '(' + words.join('|') + ')';
@@ -1605,7 +1602,6 @@ function highlightNode(node, re, nodeName, className) {
 }
 
 function unmark() {
-  window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
   var markedElements = document.querySelectorAll('mark.search');
   for (var i = 0; i < markedElements.length; i++) {
     var parent = markedElements[i].parentNode;
@@ -1656,27 +1652,48 @@ function unhighlight(es, options) {
 }
 
 // replace jQuery.createPseudo with https://stackoverflow.com/a/66318392
-function elementContains(txt, e) {
-  var regex = RegExp(txt, 'i');
-  var nodes = [];
-  if (e) {
-    var tree = document.createTreeWalker(
-      e,
-      4 /* NodeFilter.SHOW_TEXT */,
-      function (node) {
-        return regex.test(node.data);
-      },
-      false
-    );
-    var node = null;
-    while ((node = tree.nextNode())) {
-      nodes.push(node.parentElement);
-    }
+function elementContains(words, e) {
+  var settings = {
+    caseSensitive: false,
+    wordsOnly: false,
+  };
+
+  if (!words.length) {
+    return [];
   }
+  if (!e) {
+    return [];
+  }
+  words = words.map(function (word, i) {
+    return regexEscape(word);
+  });
+  var flag = settings.caseSensitive ? '' : 'i';
+  var nodes = [];
+
+  var pattern = '(' + words.join('|') + ')';
+  if (settings.wordsOnly) {
+    pattern = '\\b' + pattern + '\\b';
+  }
+  var regex = new RegExp(pattern, flag);
+
+  var tree = document.createTreeWalker(
+    e,
+    4, // NodeFilter.SHOW_TEXT
+    function (node) {
+      return regex.test(node.data);
+    },
+    false
+  );
+  var node = null;
+  while ((node = tree.nextNode())) {
+    nodes.push(node.parentElement);
+  }
+
   return nodes;
 }
 
 function searchInputHandler(value) {
+  window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
   unmark();
   if (value.length) {
     window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
@@ -1692,14 +1709,15 @@ function initSearch() {
       if (event.key == 'Escape') {
         var input = event.target;
         var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-        if (!search || !search.length) {
+        var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
+        if (!words || !words.length) {
           input.blur();
         }
         searchInputHandler('');
         inputs.forEach(function (e) {
           e.value = '';
         });
-        if (!search || !search.length) {
+        if (!words || !words.length) {
           documentFocus();
         }
       }
@@ -1724,6 +1742,7 @@ function initSearch() {
         event.initEvent('input', false, false);
         e.dispatchEvent(event);
       });
+      window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
       unmark();
     });
   });
@@ -1732,12 +1751,12 @@ function initSearch() {
   var value = urlParams.get('search-by');
   if (value) {
     window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
+    mark();
   }
-  mark();
 
   // set initial search value for inputs on page load
-  if (window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value')) {
-    var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  if (search) {
     inputs.forEach(function (e) {
       e.value = search;
       var event = document.createEvent('Event');
@@ -1746,8 +1765,8 @@ function initSearch() {
     });
   }
 
-  window.relearn.isSearchInit = true;
-  window.relearn.runInitialSearch && window.relearn.runInitialSearch();
+  window.relearn.isSearchInterfaceReady = true;
+  window.relearn.executeInitialSearch && window.relearn.executeInitialSearch();
 }
 
 document.addEventListener('themeVariantLoaded', function (ev) {

@@ -61,11 +61,11 @@ collapsibleMenu = true
 
 ## Ordering Menu Entries
 
-### By Weight
+### By Hugo's Default Sort Order
 
-{{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} {{% badge color="blueviolet" icon="bars" title=" " %}}Menu{{% /badge %}} Hugo provides a [simple way](https://gohugo.io/getting-started/glossary/#weight) to handle order of your entries by setting the `weight` front matter to a number.
+{{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} {{% badge color="blueviolet" icon="bars" title=" " %}}Menu{{% /badge %}} Hugo provides a [simple way](https://gohugo.io/quick-reference/glossary/#default-sort-order) to handle order of your entries taking into account the `weight`, `date` and `linkTitle` front matter .
 
-Hugo menus can only be sorted using the weight method.
+{{% badge color="blueviolet" icon="bars" title=" " %}}Menu{{% /badge %}} Hugo menus can only be sorted by weight.
 
 {{< multiconfig >}}
 weight = 5
@@ -73,9 +73,7 @@ weight = 5
 
 ### By Other
 
-Using the `weight` for sorting can get cumbersome if you, for example, just want to sort alphabetically. Each time you add a new page in the set of pages, you may have to renumber some or all of them to make space for the new page.
-
-{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} {{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} Use `ordersectionsby` to sort by other aspects. See the [children shortcode](shortcodes/children#parameter) for a complete list.
+{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} {{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} Use `ordersectionsby` to sort by other aspects if Hugo's default sort order does not match your needs. See the [children shortcode](shortcodes/children#parameter) for a complete list.
 
 {{< multiconfig section=params >}}
 ordersectionsby = 'linktitle'
@@ -303,7 +301,9 @@ The custom menu allows you to define arbitrary HTML snippets wrapped inside of a
 | **main**              | `false`         | Whether to add additional spacing and larger text to the menu |
 | **elements**          | _&lt;empty&gt;_ | The list of snippets, contained in `layouts/partials/sidebar/element`, to be displayed. See below.
 
-A HTML snippet has its own parameter. Your self-defined snippets can contain further parameters that are passed to your snippet partial when called. Your snippets must be stored in `layouts/partials/sidebar/element` and the name of the snippet partial needs to be `<TYPE>.html` where `<TYPE>` is the type of the element.
+### Custom Element
+
+An HTML element snippet of a custom menu has its own parameter. Self-defined snippets have further parameters that are passed to your snippet partial when called. Your snippets must be stored in `layouts/partials/sidebar/element` and the name of the snippet partial needs to be `<TYPE>.html` where `<TYPE>` is the type of the element.
 
 | Name                  | Default         | Notes       |
 |-----------------------|-----------------|-------------|
@@ -321,12 +321,20 @@ A horizontal ruler
 
 ### Example
 
-The following example configures the language switcher and history clearer into the menu header, only shows the the page menu in the main sidebar section and keeps the menu footer empty:
+The following example
+
+- configures the language switcher and history clearer into the menu header
+- changes the icon of the language switcher to {{< icon icon="globe" >}}
+- only shows the the page menu in the main sidebar section
+- keeps the menu footer empty
+
+> [!note]
+> If you want to reconfigure the sidebar menus, you have to copy over everything from the [default configuration](#defining-sidebar-menus) you want to keep as reconfiguration will reset all sidebar menus.
 
 {{< multiconfig section=params >}}
 sidebarheadermenus = [
 	{ type = 'custom', elements = [
-		{ type = 'languageswitcher'	},
+		{ type = 'languageswitcher', icon= 'globe' },
 		{ type = 'historyclearer' }
 	]},
 	{ type = 'divider' },
