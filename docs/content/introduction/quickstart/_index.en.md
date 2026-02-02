@@ -12,7 +12,7 @@ Here's how to start your new website. If you're new to Hugo, we recommend learni
 
 ## Install Hugo
 
-Download and install Hugo {{% badge color="fuchsia" icon="fa-fw fab fa-hackerrank" title=" " %}}0.126.3{{% /badge %}} or newer for your operating system [following the instructions](https://gohugo.io/installation/).
+Download and install Hugo {{% badge style="hugo" %}}0.141.0{{% /badge %}} or newer for your operating system [following the instructions](https://gohugo.io/installation/).
 
 The _standard_ edition of Hugo is sufficient but you can also use the _extended_ edition.
 
@@ -130,7 +130,7 @@ Open [http://localhost:1313](http://localhost:1313) in your web browser.
 
 You can keep the server running while you edit. The browser will update automatically when you save changes.
 
-{{% figure src="images/magic.gif" link="https://gohugo.io" alt="Magic" caption="It's a kind of magic" %}}
+{{< figure src="images/magic.gif" link="https://gohugo.io" alt="Magic" caption="It's a kind of magic" >}}
 
 ## Build and Deploy
 

@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Stai leggendo la versione {{.pageVersion.title}} di questa pagina. La versione attuale può essere trovata <a href="{{.latestUrl}}">qui</a>.'
+other = 'Questa pagina mostra la versione {{.pageVersion.title}}. La versione attuale può essere trovata <a href="{{.latestUrl}}">qui</a>.'
 
 [Search]
 other = "Cerca"
@@ -61,9 +61,6 @@ other = "Altro"
 [shortcuts-menuTitle]
 other = "Altro"
 
-[Expand-title]
-other = "Espandi..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,16 +95,16 @@ other = "Suggerimento"
 other = "Attenzione"
 
 [Copy-to-clipboard]
-other = "Copia nella clipboard"
+other = "Copia il testo negli appunti"
 
 [Copied-to-clipboard]
-other = "Copia dalla clipboard!"
+other = "Testo copiato negli appunti!"
 
 [Copy-link-to-clipboard]
-other = "Copia collegamento in clipboard"
+other = "Copia collegamento negli appunti"
 
 [Link-copied-to-clipboard]
-other = "Collegamento copiato dalla clipboard!"
+other = "Collegamento copiato negli appunti!"
 
 [Chapter]
 other = "Capitolo {{.}}"
@@ -138,3 +135,9 @@ other = "Categoria"
 
 [Details]
 other = "Dettagli"
+
+[Version]
+other = "Versione"
+
+[Browser-unsupported-feature]
+other = "Questo browser non supporta questa funzionalità"

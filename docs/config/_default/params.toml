@@ -27,6 +27,7 @@ author.emailname = ''
 # protocol and twitter cards.
 # This can be overridden in the page's frontmatter.
 images = [ 'images/hero.png' ]
+
 ###############################################################################
 # Relearn Theme
 # These options are specific to the Relearn theme.
@@ -35,11 +36,25 @@ images = [ 'images/hero.png' ]
 # Branding
 # These options set your overall visual appearance.
 
-# The title to be used for links to the main page
+# The title to be used for links in the upper left corner
 # Default: not set
 # This name will be used for the link to the main page in the upper section
 # of the menu. If not set, `title` from the Hugo settings will be used.
-linkTitle = 'Relearn'
+# If the title is to long to fit on a single line it is automatically wrapped.
+# If you want manual control over the line breaks, you can insert newline characters.
+linkTitle = "Relearn"
+
+# The title logo to be used in the upper left corner
+# Default: not set
+# If the value is not set or empty, the theme searches for a global resource
+# `/images/logo.<TYPE>`. Setting the `src` sub-field will override the
+# default logo (see logo parameter). If `src` is set to string containing all
+# whitespace, no logo will be displayed for that variant regardless of the
+# default logo. A logo will only be printed if you haven't overwritten
+# layouts/partials/logo.html.
+# If you als print a `linkTitle` you can set the `direction` sub-field to
+# either `column` or `row` to arrange logo and title accordingly.
+logo = { src = '/images/logo.svg?inlinecontent', direction = 'row' }
 
 # Used color variants.
 # Default: 'auto'
@@ -51,6 +66,11 @@ linkTitle = 'Relearn'
 # The last form allows to set further options for each variant.
 # The `identifier` is mandatory. You can also set `name` which overrides the
 # value displayed in the variant selector.
+# Setting the `logo` field and setting the `src` sub-field will override the
+# default logo (see logo parameter). If `src` is set to string containing all
+# whitespace, no logo will be displayed for that variant regardless of the
+# default logo. A logo will only be printed if you haven't overwritten
+# layouts/partials/logo.html.
 # If the array has more than one entry, a variant selector
 # is shown in the lower part of the menu. The first entry in the array is the
 # default variant, used for first time visitors.
@@ -69,7 +89,7 @@ themeVariant = [
 	{ identifier = 'zen-dark'       },
 	{ identifier = 'zen-light'      },
 	{ identifier = 'retro-auto',    name = 'Retro Learn/Neon', auto = [ 'learn', 'neon' ] },
-	{ identifier = 'neon'           },
+	{ identifier = 'neon',          logo = { src = '/images/magic.gif' } },
 	{ identifier = 'learn'          },
 	{ identifier = 'blue'           },
 	{ identifier = 'green'          },
@@ -121,7 +141,22 @@ disableRandomIds = false
 # The referenced address will be checked against all regexes of this array.
 # If it matches at least one, no output will be written to the console.
 # This array can be expanded in the page's frontmatter.
-errorignore = []
+urlIgnoreCheck = [
+    'exampleSite',
+	'images/hero\.zip',
+	'http://localhost:1313',
+	'https://github\.com/McShelby/hugo-theme-relearn/settings',
+	'https://github\.com/McShelby/hugo-theme-relearn/archive/main\.zip',
+	'https://github\.com/McShelby/hugo-theme-relearn/edit/main/docs/introduction/releasenotes'
+]
+
+# Check external URLs
+# Default: false
+# If `true` the theme checks during build if an external URL is reachable.
+# If it fails, it write errors according to the errorlevel settings. A check
+# is omitted if the URL is found in the `urlIgnoreCheck` list.
+# This can be overridden in the page's frontmatter.
+urlExternalCheck = true
 
 # Additional code dependencies.
 # Default: See hugo.toml of the theme
@@ -479,8 +514,29 @@ disableAnchorScrolling = false
 # but a `i18n` is set, the title will be taken from the translation files by
 # that key. The `title` may be empty in which case, the box does not contain a
 # default title. `icon` and `color` are working similar.
+# You can also redefine the predefined styles if you're not satisfied with the
+# default values.
+# If you define an optional `style` attribute, this is where all default values
+# are taken from. You can reference predefined styles as also your own styles
+# if they are defined beforehand in this array.
 boxStyle = [
-	{ identifier = 'magic', i18n = '', title = 'Magic', icon = 'rainbow', color = 'oklch(0.852 0.199 91.936)' }
+	{ identifier = 'hugo', color = 'fuchsia', icon = 'fa-fw fab fa-hackerrank' },
+	{ identifier = 'breaking', style = 'warning', title = ' ' },
+	{ identifier = 'change', style = 'note', title = ' ' },
+	{ identifier = 'new', style = 'info', title = ' ', icon = 'plus-circle' },
+
+	{ identifier = 'option', style = 'cyan', icon = 'gears' },
+	{ identifier = 'frontmatter', style = 'green', icon = 'fa-fw fab fa-markdown' },
+	{ identifier = 'hugomenu', color = 'blueviolet', icon = 'bars' },
+
+	{ identifier = 'gfm', color = 'darkgray', icon = 'fa-fw fab fa-github' },
+	{ identifier = 'php', color = 'rgb(136, 140, 196)', icon = 'fa-fw fab fa-php' },
+	{ identifier = 'pants', color = 'darkorange', icon = 'lightbulb' },
+	{ identifier = 'obsidian', color = 'rgb(124, 58, 237)', icon = 'fa-fw far fa-gem' },
+	{ identifier = 'html', color = 'orangered', icon = 'fa-fw fas fa-code' },
+	{ identifier = 'relearn', color = 'rgb(125, 201, 3)', icon = 'fa-fw fas fa-puzzle-piece' },
+
+	{ identifier = 'magic', i18n = '', title = 'Magic', color = 'violet', icon = 'hand-sparkles' }
 ]
 
 # Hide the authors name and email addresses
@@ -611,11 +667,13 @@ disableExplicitIndexURLs = false
 enableLegacyLanguageLinks = false
 
 # How to open external links.
-# Default: '_blank'
+# Default: ''
 # For external links you can define how they are opened in your browser. All
 # values for the HTML `target` attribute of the `a` element are allowed. The
-# default value opens external links in a separate browser tab. If you want
-# to open those links in the same tab, use '_self'.
+# default value will not add any target attribute opens external links in
+# the same browser tab.
+# If you want to explicitly open those links in the same
+# tab, use '_self'.
 # If you want to set the default behavior for all links, use link effects.
 # This can be overridden in the page's frontmatter.
 externalLinkTarget = '_self'

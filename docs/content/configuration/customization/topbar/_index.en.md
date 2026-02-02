@@ -34,10 +34,10 @@ While you cannot add additional areas in the topbar, you are free to configure a
 The theme ships with the following predefined buttons (from left to right in the screenshot):
 
 - {{% button style="transparent" icon="bars" %}}{{% /button %}} [**sidebar**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/sidebar.html): opens the sidebar flyout if in mobile layout
-- {{% button style="transparent" icon="list-alt" %}}{{% /button %}} [**toc**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/toc.html): [opens the table of contents in an overlay](authoring/frontmatter/topbar#table-of-contents)
+- {{% button style="transparent" icon="table-list" %}}{{% /button %}} [**toc**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/toc.html): [opens the table of contents in an overlay](authoring/frontmatter/topbar#table-of-contents)
 - {{% button style="transparent" icon="pen" %}}{{% /button %}} [**edit**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/edit.html): browses to the editable page if the `editURL` [parameter is set](authoring/frontmatter/topbar#edit-button)
-- {{% button style="transparent" icon="code" %}}{{% /button %}} [**source**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/markdown.html): browses to the chapter's source code if [markdown support](configuration/sitemanagement/outputformats#source-support) was activated
-- {{% button style="transparent" icon="fa-fw fab fa-markdown" %}}{{% /button %}} [**markdown**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/markdown.html): browses to the chapter's markdown source if [markdown support](configuration/sitemanagement/outputformats#markdown-support) was activated
+- {{% button style="transparent" icon="code" %}}{{% /button %}} [**source**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/markdown.html): shows the page's source code if [markdown support](configuration/sitemanagement/outputformats#source-support) was activated
+- {{% button style="transparent" icon="fa-fw fab fa-markdown" %}}{{% /button %}} [**markdown**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/markdown.html): shows the page's markdown source if [markdown support](configuration/sitemanagement/outputformats#markdown-support) was activated
 - {{% button style="transparent" icon="print" %}}{{% /button %}} [**print**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/print.html): browses to the chapter's printable page if [print support](configuration/sitemanagement/outputformats#print-support) was activated
 - {{% button style="transparent" icon="chevron-left" %}}{{% /button %}} [**prev**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/prev.html): browses to the [previous page](authoring/frontmatter/topbar#arrow-navigation) if there is one
 - {{% button style="transparent" icon="chevron-right" %}}{{% /button %}} [**next**](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/next.html): browses to the [next page]authoring/frontmatter/topbar(#arrow-navigation) if there is one
@@ -110,7 +110,7 @@ Call this from your own button templates if you want to implement a button witho
 
 For displaying an area in the button's overlay, see [Area-Button](#area-button).
 
-#### Parameter
+#### Parameters
 
 | Name                  | Default         | Notes       |
 |-----------------------|-----------------|-------------|
@@ -132,7 +132,7 @@ Contains the basic functionality to display area overlay buttons ([`layouts/part
 
 Call this from your own button templates if you want to implement a button with an area overlay like the _more_ button ([`layouts/partials/topbar/button/more.html`](https://github.com/McShelby/hugo-theme-relearn/blob/main/layouts/partials/topbar/button/more.html)).
 
-#### Parameter
+#### Parameters
 
 | Name                  | Default         | Notes       |
 |-----------------------|-----------------|-------------|
@@ -154,7 +154,7 @@ Call these from your own redefined area templates if you want to use default but
 
 The _&lt;varying&gt;_ parameter values are different for each button and configured for standard behavior as seen on this page.
 
-#### Parameter
+#### Parameters
 
 | Name                  | Default           | Notes       |
 |-----------------------|-------------------|-------------|
@@ -171,7 +171,7 @@ Call these from your own redefined area templates if you want to use default but
 
 The _&lt;varying&gt;_ parameter values are different for each button and configured for standard behavior as seen on this page.
 
-#### Parameter
+#### Parameters
 
 | Name                  | Default           | Notes       |
 |-----------------------|-------------------|-------------|

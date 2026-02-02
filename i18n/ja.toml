@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'このページのバージョン{{.pageVersion.title}}を読んでいます。現在のバージョンを見つけることができます<a href="{{.latestUrl}}">ここは</a>.'
+other = 'このページはバージョン{{.pageVersion.title}}を表示しています。現在のバージョンは<a href="{{.latestUrl}}">こちら</a>で確認できます。'
 
 [Search]
 other = "検索"
@@ -61,9 +61,6 @@ other = "更に"
 [shortcuts-menuTitle]
 other = "更に"
 
-[Expand-title]
-other = "開く..."
-
 [Navigation-toggle]
 other = "メニュー"
 
@@ -98,10 +95,10 @@ other = "ヒント"
 other = "警告"
 
 [Copy-to-clipboard]
-other = "クリップボードにコピー"
+other = "テキストをクリップボードにコピー"
 
 [Copied-to-clipboard]
-other = "クリップボードにコピー!"
+other = "テキストをクリップボードにコピーしました!"
 
 [Copy-link-to-clipboard]
 other = "リンクをクリップボードにコピー"
@@ -138,3 +135,9 @@ other = "カテゴリー"
 
 [Details]
 other = "細部"
+
+[Version]
+other = "バージョン"
+
+[Browser-unsupported-feature]
+other = "このブラウザはこの機能をサポートしていません"

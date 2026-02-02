@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Bạn đang đọc phiên bản {{.pageVersion.title}} của trang này. Phiên bản hiện tại có thể được tìm thấy <a href="{{.latestUrl}}">Ở đây</a>.'
+other = 'Trang này hiển thị phiên bản {{.pageVersion.title}}. Phiên bản hiện tại có thể được tìm thấy <a href="{{.latestUrl}}">Ở đây</a>.'
 
 [Search]
 other = "Tìm kiếm"
@@ -61,9 +61,6 @@ other = "Nội dung khác"
 [shortcuts-menuTitle]
 other = "Nội dung khác"
 
-[Expand-title]
-other = "Mở rộng..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,16 +95,16 @@ other = "Mẹo vặt"
 other = "Cảnh báo"
 
 [Copy-to-clipboard]
-other = "Sao chép vào bảng tạm"
+other = "Sao chép văn bản vào bảng tạm"
 
 [Copied-to-clipboard]
-other = "Sao chép vào bảng tạm!"
+other = "Văn bản đã sao chép vào bảng tạm!"
 
 [Copy-link-to-clipboard]
-other = "Sao chép nối kết vào bảng tạm"
+other = "Sao chép liên kết vào bảng tạm"
 
 [Link-copied-to-clipboard]
-other = "Liên kết được sao chép vào bảng tạm!"
+other = "Liên kết đã sao chép vào bảng tạm!"
 
 [Chapter]
 other = "Chương {{.}}"
@@ -138,3 +135,9 @@ other = "Loại"
 
 [Details]
 other = "Chi tiết"
+
+[Version]
+other = "Phiên bản"
+
+[Browser-unsupported-feature]
+other = "Trình duyệt này không hỗ trợ tính năng này"

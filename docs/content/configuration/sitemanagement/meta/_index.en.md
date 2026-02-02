@@ -9,7 +9,7 @@ weight = 4
 
 ## Site Author Information
 
-{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} The theme uses author details in various parts of your site, like RSS feeds and meta tags.
+{{% badge style="option" %}}Option{{% /badge %}} The theme uses author details in various parts of your site, like RSS feeds and meta tags.
 
 {{< multiconfig file=hugo section=params >}}
 [author]
@@ -27,7 +27,7 @@ title = 'Hugo Relearn Theme'
 
 ## Site Description
 
-{{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} The theme shows a site description in various places, such as RSS feeds and meta tags. For this, it uses the `description` field from your home page's front matter.
+{{% badge style="frontmatter" %}}Front Matter{{% /badge %}} The theme shows a site description in various places, such as RSS feeds and meta tags. For this, it uses the `description` field from your home page's front matter.
 
 ## Social Media Images
 
@@ -39,4 +39,4 @@ images = [ 'images/hero.png' ]
 
 ## More Social Media Options
 
-The theme adheres to Hugo's official documentation for [Open Graph](https://gohugo.io/templates/embedded/#configure-open-graph) and [Twitter Cards](https://gohugo.io/templates/embedded/#configure-x-twitter-cards) configuration.
+The theme adheres to Hugo's official documentation for [Open Graph](https://gohugo.io/templates/embedded/#configuration-open-graph) and [Twitter Cards](https://gohugo.io/templates/embedded/#configuration-x-cards) configuration.

@@ -70,6 +70,33 @@ function debounce(func, delay) {
   };
 }
 
+// Toast notification system
+function showToast(message) {
+  if (!message) return;
+
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-atomic', 'true');
+  toast.textContent = message;
+
+  container.appendChild(toast);
+
+  setTimeout(function () {
+    toast.classList.add('toast-hiding');
+    setTimeout(function () {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 300); // Match the fade-out animation duration
+  }, 2000);
+}
+
+window.relearn.showToast = showToast;
+
 function fixCodeTabs() {
   /* if only a single code block is contained in the tab and no style was selected, treat it like style=code */
   var codeTabContents = Array.from(document.querySelectorAll('.tab-content.tab-panel-style')).filter(function (tabContent) {
@@ -126,11 +153,13 @@ function switchTab(tabGroup, tabId) {
   allTabItems &&
     allTabItems.forEach(function (e) {
       e.classList.remove('active');
+      e.setAttribute('aria-expanded', 'false');
       e.removeAttribute('tabindex');
     });
   targetTabItems &&
     targetTabItems.forEach(function (e) {
       e.classList.add('active');
+      e.setAttribute('aria-expanded', 'true');
       e.setAttribute('tabindex', '-1');
     });
 
@@ -143,21 +172,21 @@ function switchTab(tabGroup, tabId) {
 
     // Store the selection to make it persistent
     if (window.localStorage) {
-      var selectionsJSON = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections');
+      var selectionsJSON = window.localStorage.getItem(window.relearn.absBaseUri + '/tab-selections');
       if (selectionsJSON) {
         var tabSelections = JSON.parse(selectionsJSON);
       } else {
         var tabSelections = {};
       }
       tabSelections[tabGroup] = tabId;
-      window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections', JSON.stringify(tabSelections));
+      window.localStorage.setItem(window.relearn.absBaseUri + '/tab-selections', JSON.stringify(tabSelections));
     }
   }
 }
 
 function restoreTabSelections() {
   if (window.localStorage) {
-    var selectionsJSON = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections');
+    var selectionsJSON = window.localStorage.getItem(window.relearn.absBaseUri + '/tab-selections');
     if (selectionsJSON) {
       var tabSelections = JSON.parse(selectionsJSON);
     } else {
@@ -242,13 +271,18 @@ function initMermaid(update, attrs) {
 
       var graph = encodeHTML(serializeGraph(parse));
       var new_element = document.createElement('div');
+      var hasActionbarWrapper = element.classList.contains('actionbar-wrapper');
       Array.from(element.attributes).forEach(function (attr) {
         new_element.setAttribute(attr.name, attr.value);
         element.removeAttribute(attr.name);
       });
       new_element.classList.add('mermaid-container');
       new_element.classList.remove('mermaid');
+      new_element.classList.remove('actionbar-wrapper');
       element.classList.add('mermaid');
+      if (hasActionbarWrapper) {
+        element.classList.add('actionbar-wrapper');
+      }
 
       element.innerHTML = graph;
       if (element.offsetParent !== null) {
@@ -345,26 +379,21 @@ function initMermaid(update, attrs) {
           var svg = d3.select(this);
           svg.html('<g>' + svg.html() + '</g>');
           var inner = svg.select('*:scope > g');
-          parent.insertAdjacentHTML('beforeend', '<button class="svg-reset-button" title="' + window.T_Reset_view + '"><i class="fas fa-undo-alt"></i></button>');
-          var button = parent.querySelector('.svg-reset-button');
+          parent.insertAdjacentHTML('beforeend', '<div class="actionbar"><span class="btn cstyle svg-reset-button action noborder notitle interactive"><button type="button" title="' + window.T_Reset_view + '"><i class="fa-fw fas fa-undo-alt"></i></button></span></div>');
+          var wrapper = parent.querySelector('.svg-reset-button');
+          var button = wrapper.querySelector('button');
           var zoom = d3.zoom().on('zoom', function (e) {
             inner.attr('transform', e.transform);
             if (e.transform.k == 1 && e.transform.x == 0 && e.transform.y == 0) {
-              button.classList.remove('zoomed');
+              wrapper.classList.remove('zoomed');
             } else {
-              button.classList.add('zoomed');
+              wrapper.classList.add('zoomed');
             }
           });
-          button.addEventListener('click', function (event) {
+          button.addEventListener('click', function () {
+            this.blur();
             svg.transition().duration(350).call(zoom.transform, d3.zoomIdentity);
-            this.setAttribute('aria-label', window.T_View_reset);
-            this.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isImageRtl ? 'e' : 'w'));
-          });
-          button.addEventListener('mouseleave', function () {
-            if (this.classList.contains('tooltipped')) {
-              this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
-              this.removeAttribute('aria-label');
-            }
+            showToast(window.T_View_reset);
           });
           svg.call(zoom);
         });
@@ -444,12 +473,11 @@ function initOpenapi(update, attrs) {
     oi.id = openapiIframeId;
     oi.classList.toggle('sc-openapi-iframe', true);
     oi.srcdoc = `<!doctype html>
-<html lang="${lang}" dir="${isRtl ? 'rtl' : 'ltr'}" data-r-output-format="${format}" data-r-theme-variant="${variant}">
+<html id="R-html" class="relearn ${swagger_theme}-mode" lang="${lang}" dir="${isRtl ? 'rtl' : 'ltr'}" data-r-output-format="${format}" data-r-theme-variant="${variant}">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="${window.relearn.themeUseOpenapi.css}${assetBuster}">
     <link rel="stylesheet" href="${relBasePath}/css/swagger${min}.css${assetBuster}">
-    <link rel="stylesheet" href="${relBasePath}/css/swagger-${swagger_theme}${min}.css${assetBuster}">
     <link rel="stylesheet" href="${theme}">
     <script>
       function relearn_expand_all() {
@@ -573,52 +601,31 @@ function initOpenapi(update, attrs) {
 }
 
 function initAnchorClipboard() {
-  if (window.relearn.disableAnchorCopy && window.relearn.disableAnchorScrolling) {
-    return;
-  }
+  const url = document.location.origin == 'null' ? `${document.location.protocol}//${document.location.host}${document.location.pathname}` : `${document.location.origin}${document.location.pathname}`;
 
-  document.querySelectorAll(':has(h1) :is(h2[id], h3[id], h4[id], h5[id], h6[id])').forEach(function (element) {
-    var origin = document.location.origin == 'null' ? `${document.location.protocol}//${document.location.host}` : document.location.origin;
-    var id = encodeURIComponent(element.id);
-    var link = `${origin}${document.location.pathname}#${id}`;
-    var new_element = document.createElement('button');
-    new_element.classList.add('anchor');
-    if (!window.relearn.disableAnchorCopy) {
-      new_element.setAttribute('title', window.T_Copy_link_to_clipboard);
-    }
-    new_element.setAttribute('data-clipboard-text', link);
-    new_element.innerHTML = '<i class="fas fa-link fa-lg"></i>';
-    element.appendChild(new_element);
-  });
+  const anchors = Array.from(document.querySelectorAll('.anchor'));
+  for (const anchor of anchors) {
+    const id = encodeURIComponent(anchor.parentElement.id);
+    anchor.setAttribute('data-clipboard-text', `${url}#${id}`);
 
-  var anchors = document.querySelectorAll('.anchor');
-  if (!window.relearn.disableAnchorCopy) {
-    for (var i = 0; i < anchors.length; i++) {
-      anchors[i].addEventListener('mouseleave', function (e) {
-        this.removeAttribute('aria-label');
-        this.classList.remove('tooltipped', 'tooltipped-se', 'tooltipped-sw');
+    if (anchor.classList.contains('copyanchor')) {
+      anchor.addEventListener('click', function () {
+        this.blur();
+        if (!navigator.clipboard?.writeText) {
+          showToast(window.T_Browser_unsupported_feature);
+          return;
+        }
+        const text = this.getAttribute('data-clipboard-text');
+        navigator.clipboard.writeText(text);
+        showToast(window.T_Link_copied_to_clipboard);
       });
     }
-
-    var clip = new ClipboardJS('.anchor');
-    clip.on('success', function (e) {
-      e.clearSelection();
-      e.trigger.setAttribute('aria-label', window.T_Link_copied_to_clipboard);
-      e.trigger.classList.add('tooltipped', 'tooltipped-s' + (isRtl ? 'e' : 'w'));
-      if (!window.relearn.disableAnchorScrolling) {
-        e.trigger.parentElement.scrollIntoView({ behavior: 'smooth' });
-        var state = window.history.state || {};
+    if (anchor.classList.contains('scrollanchor')) {
+      anchor.addEventListener('click', function () {
+        this.parentElement.scrollIntoView({ behavior: 'smooth' });
+        let state = window.history.state || {};
         state = Object.assign({}, typeof state === 'object' ? state : {});
-        history.replaceState({}, '', e.text);
-      }
-    });
-  } else if (!window.relearn.disableAnchorScrolling) {
-    for (var i = 0; i < anchors.length; i++) {
-      anchors[i].addEventListener('click', function (e) {
-        e.target.parentElement.parentElement.scrollIntoView({ behavior: 'smooth' });
-        var state = window.history.state || {};
-        state = Object.assign({}, typeof state === 'object' ? state : {});
-        history.replaceState({}, '', e.text);
+        history.pushState({}, '', this.dataset.clipboardText);
       });
     }
   }
@@ -636,19 +643,6 @@ function initCodeClipboard() {
     // come from the browser / Hugo transformation
     text = text.replace(/\n$/, '');
     return text;
-  }
-
-  function fallbackMessage(action) {
-    var actionMsg = '';
-    var actionKey = action === 'cut' ? 'X' : 'C';
-    if (/iPhone|iPad/i.test(navigator.userAgent)) {
-      actionMsg = 'No support :(';
-    } else if (/Mac/i.test(navigator.userAgent)) {
-      actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
-    } else {
-      actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
-    }
-    return actionMsg;
   }
 
   document.addEventListener('copy', function (ev) {
@@ -736,37 +730,37 @@ function initCodeClipboard() {
         code = clone;
       }
       var button = null;
+      var insertElement = null;
+      var wrapper = null;
+      var actionbar = null;
       if (isBlock || (!window.relearn.disableInlineCopyToClipboard && !inHeading)) {
         button = document.createElement('button');
-        var buttonPrefix = isBlock ? 'block' : 'inline';
-        button.classList.add(buttonPrefix + '-copy-to-clipboard-button');
+        button.type = 'button';
         button.setAttribute('title', window.T_Copy_to_clipboard);
-        button.innerHTML = '<i class="far fa-copy"></i>';
-        button.addEventListener('mouseleave', function () {
-          this.removeAttribute('aria-label');
-          this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
-        });
+
         if (isBlock) {
-          // we have to make sure, the button is visible while
-          // Clipboard.js is doing its magic
-          button.addEventListener('focus', function (ev) {
-            setTimeout(function () {
-              ev.target.classList.add('force-display');
-            }, 0);
-          });
-          button.addEventListener('blur', function (ev) {
-            this.removeAttribute('aria-label');
-            this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
-            setTimeout(function () {
-              ev.target.classList.remove('force-display');
-            }, 0);
-          });
+          // Wrap in actionbar structure for block buttons
+          button.innerHTML = '<i class="fa-fw far fa-copy"></i>';
+          wrapper = document.createElement('span');
+          wrapper.classList.add('btn', 'cstyle', 'block-copy-to-clipboard-button', 'action', 'noborder', 'notitle', 'interactive');
+          wrapper.appendChild(button);
+          actionbar = document.createElement('div');
+          actionbar.className = 'actionbar';
+          actionbar.appendChild(wrapper);
+          insertElement = actionbar;
+        } else {
+          // Wrap in btn structure for inline buttons
+          button.innerHTML = '<i class="fa-fw far fa-copy"></i>';
+          wrapper = document.createElement('span');
+          wrapper.classList.add('btn', 'cstyle', 'inline-copy-to-clipboard-button', 'inline', 'notitle', 'interactive');
+          wrapper.appendChild(button);
+          insertElement = wrapper;
         }
       }
       if (inTable) {
         var table = code.parentNode.parentNode.parentNode.parentNode.parentNode;
         table.dataset.code = text;
-        table.parentNode.insertBefore(button, table.nextSibling);
+        table.parentNode.insertBefore(insertElement, table.nextSibling);
       } else if (inPre) {
         var pre = code.parentNode;
         pre.dataset.code = text;
@@ -778,56 +772,43 @@ function initCodeClipboard() {
         if (p == document) {
           var clone = pre.cloneNode(true);
           var div = document.createElement('div');
-          div.classList.add('highlight');
-          div.setAttribute('dir', 'auto');
+          div.classList.add('highlight', 'actionbar-wrapper');
           if (window.relearn.enableBlockCodeWrap) {
             div.classList.add('wrap-code');
           }
+          div.setAttribute('dir', 'auto');
           div.appendChild(clone);
           pre.parentNode.replaceChild(div, pre);
           pre = clone;
         }
-        pre.parentNode.insertBefore(button, pre.nextSibling);
+        pre.parentNode.insertBefore(insertElement, pre.nextSibling);
       } else {
         code.classList.add('highlight');
         code.dataset.code = text;
-        if (button) {
-          code.parentNode.insertBefore(button, code.nextSibling);
+        if (insertElement) {
+          code.parentNode.insertBefore(insertElement, code.nextSibling);
         }
       }
     }
   }
 
-  var clip = new ClipboardJS('.block-copy-to-clipboard-button, .inline-copy-to-clipboard-button', {
-    text: function (trigger) {
-      if (!trigger.previousElementSibling) {
-        return '';
+  var buttons = document.querySelectorAll('.block-copy-to-clipboard-button button, .inline-copy-to-clipboard-button button');
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      this.blur();
+      if (!navigator.clipboard?.writeText) {
+        showToast(window.T_Browser_unsupported_feature);
+        return;
       }
-      return trigger.previousElementSibling.dataset.code || '';
-    },
-  });
-
-  clip.on('success', function (e) {
-    e.clearSelection();
-    var inPre = e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'pre';
-    var isCodeRtl = window.getComputedStyle(e.trigger).direction == 'rtl';
-    var doBeside = inPre || (e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'table');
-    e.trigger.setAttribute('aria-label', window.T_Copied_to_clipboard);
-    e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
-  });
-
-  clip.on('error', function (e) {
-    var inPre = e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'pre';
-    var isCodeRtl = window.getComputedStyle(e.trigger).direction == 'rtl';
-    var doBeside = inPre || (e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'table');
-    e.trigger.setAttribute('aria-label', fallbackMessage(e.action));
-    e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
-    var f = function () {
-      e.trigger.setAttribute('aria-label', window.T_Copied_to_clipboard);
-      e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
-      document.removeEventListener('copy', f);
-    };
-    document.addEventListener('copy', f);
+      // For block buttons, get the actionbar's previous sibling; for inline, use wrapper's previous sibling
+      var codeElement = this.closest('.actionbar') ? this.closest('.actionbar').previousElementSibling : this.parentElement.previousElementSibling;
+      if (!codeElement) {
+        return;
+      }
+      var text = codeElement.dataset.code || '';
+      navigator.clipboard.writeText(text);
+      showToast(window.T_Copied_to_clipboard);
+    });
   });
 }
 
@@ -1337,14 +1318,11 @@ function initExpand() {
 }
 
 function clearHistory() {
-  var visitedItem = window.relearn.absBaseUri + '/visited-url/';
+  var visitedItem = window.relearn.absBaseUri + '/visited-url';
   for (var item in window.sessionStorage) {
     if (item.substring(0, visitedItem.length) === visitedItem) {
-      window.relearn.removeItem(window.sessionStorage, item);
+      window.sessionStorage.removeItem(item);
       var url = item.substring(visitedItem.length);
-      // in case we have `relativeURLs=true` we have to strip the
-      // relative path to root
-      url = url.replace(/\.\.\//g, '/').replace(/^\/+\//, '/');
       document.querySelectorAll('[data-nav-id="' + url + '"]').forEach(function (e) {
         e.classList.remove('visited');
       });
@@ -1353,16 +1331,15 @@ function clearHistory() {
 }
 
 function initHistory() {
-  var visitedItem = window.relearn.absBaseUri + '/visited-url/';
-  window.relearn.setItem(window.sessionStorage, visitedItem + document.querySelector('body').dataset.url, 1);
+  var visitedItem = window.relearn.absBaseUri + '/visited-url';
+  window.sessionStorage.setItem(visitedItem + document.querySelector('body').dataset.origin, 1);
 
   // loop through the sessionStorage and see if something should be marked as visited
   for (var item in window.sessionStorage) {
-    if (item.substring(0, visitedItem.length) === visitedItem && window.relearn.getItem(window.sessionStorage, item) == 1) {
+    if (item.substring(0, visitedItem.length) === visitedItem && window.sessionStorage.getItem(item) == 1) {
       var url = item.substring(visitedItem.length);
       // in case we have `relativeURLs=true` we have to strip the
       // relative path to root
-      url = url.replace(/\.\.\//g, '/').replace(/^\/+\//, '/');
       document.querySelectorAll('[data-nav-id="' + url + '"]').forEach(function (e) {
         e.classList.add('visited');
       });
@@ -1371,16 +1348,15 @@ function initHistory() {
 }
 
 function initScrollPositionSaver() {
+  var scrollPositionKey = window.relearn.absBaseUri + '/scroll-position/' + document.querySelector('body').dataset.origin;
+
   function savePosition(event) {
     // #959 if we fiddle around with the history during print preview
     // GC will close the preview immediatley
     if (isPrintPreview) {
       return;
     }
-    var state = window.history.state || {};
-    state = Object.assign({}, typeof state === 'object' ? state : {});
-    state.contentScrollTop = +elc.scrollTop;
-    window.history.replaceState(state, '', window.location);
+    window.sessionStorage.setItem(scrollPositionKey, +elc.scrollTop);
   }
 
   var ticking = false;
@@ -1395,7 +1371,26 @@ function initScrollPositionSaver() {
     }
   });
 
-  document.addEventListener('click', savePosition);
+  document.addEventListener('click', transferScrollToHistory);
+  window.addEventListener('pagehide', transferScrollToHistory);
+  window.addEventListener('beforeunload', transferScrollToHistory);
+}
+
+function transferScrollToHistory(event) {
+  // #959 Don't modify history during print preview
+  if (isPrintPreview) {
+    return;
+  }
+
+  var scrollPositionKey = window.relearn.absBaseUri + '/scroll-position/' + document.querySelector('body').dataset.origin;
+  var scrollTop = window.sessionStorage.getItem(scrollPositionKey);
+  if (scrollTop != null) {
+    var state = window.history.state || {};
+    state = Object.assign({}, typeof state === 'object' ? state : {});
+    state.contentScrollTop = +scrollTop;
+    window.history.replaceState(state, '');
+    window.sessionStorage.removeItem(scrollPositionKey);
+  }
 }
 
 function scrollToPositions() {
@@ -1426,7 +1421,7 @@ function scrollToPositions() {
     return;
   }
 
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  var search = window.sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
   var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
   if (words && words.length) {
     var found = elementContains(words, elc);
@@ -1500,7 +1495,7 @@ const observer = new PerformanceObserver(function () {
 observer.observe({ type: 'navigation' });
 
 function mark() {
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  var search = window.sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
   var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
   if (!words || !words.length) {
     return;
@@ -1520,11 +1515,10 @@ function mark() {
     var parent = markedElements[i].parentNode;
     while (parent && parent.classList) {
       if (parent.classList.contains('expand')) {
-        var expandInputs = parent.querySelectorAll('input:not(.expand-marked)');
-        if (expandInputs.length) {
-          expandInputs[0].classList.add('expand-marked');
-          expandInputs[0].dataset.checked = expandInputs[0].checked ? 'true' : 'false';
-          expandInputs[0].checked = true;
+        if (!parent.classList.contains('expand-marked')) {
+          parent.classList.add('expand-marked');
+          parent.dataset.open = parent.open ? 'true' : 'false';
+          parent.open = true;
         }
       }
       if (parent.tagName.toLowerCase() === 'li' && parent.parentNode && parent.parentNode.tagName.toLowerCase() === 'ul' && parent.parentNode.classList.contains('collapsible-menu')) {
@@ -1615,11 +1609,10 @@ function unmark() {
         }
       }
       if (parent.classList.contains('expand')) {
-        var expandInputs = parent.querySelectorAll('input.expand-marked');
-        if (expandInputs.length) {
-          expandInputs[0].checked = expandInputs[0].dataset.checked === 'true';
-          expandInputs[0].dataset.checked = null;
-          expandInputs[0].classList.remove('expand-marked');
+        if (parent.classList.contains('expand-marked')) {
+          parent.open = parent.dataset.open === 'true';
+          parent.dataset.open = null;
+          parent.classList.remove('expand-marked');
         }
       }
       parent = parent.parentNode;
@@ -1693,10 +1686,10 @@ function elementContains(words, e) {
 }
 
 function searchInputHandler(value) {
-  window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  window.sessionStorage.removeItem(window.relearn.absBaseUri + '/search-value');
   unmark();
   if (value.length) {
-    window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
+    window.sessionStorage.setItem(window.relearn.absBaseUri + '/search-value', value);
     mark();
   }
 }
@@ -1708,7 +1701,7 @@ function initSearch() {
     e.addEventListener('keydown', function (event) {
       if (event.key == 'Escape') {
         var input = event.target;
-        var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+        var search = window.sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
         var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
         if (!words || !words.length) {
           input.blur();
@@ -1742,7 +1735,7 @@ function initSearch() {
         event.initEvent('input', false, false);
         e.dispatchEvent(event);
       });
-      window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+      window.sessionStorage.removeItem(window.relearn.absBaseUri + '/search-value');
       unmark();
     });
   });
@@ -1750,12 +1743,12 @@ function initSearch() {
   var urlParams = new URLSearchParams(window.location.search);
   var value = urlParams.get('search-by');
   if (value) {
-    window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
+    window.sessionStorage.setItem(window.relearn.absBaseUri + '/search-value', value);
     mark();
   }
 
   // set initial search value for inputs on page load
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
+  var search = window.sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
   if (search) {
     inputs.forEach(function (e) {
       e.value = search;
@@ -1914,9 +1907,9 @@ ready(function () {
       });
   }
   function moveTopbarButtons() {
-    var isS = body.classList.contains('menu-width-s');
-    var isM = body.classList.contains('menu-width-m');
-    var isL = body.classList.contains('menu-width-l');
+    var isS = body.classList.contains('menu-s-width');
+    var isM = body.classList.contains('menu-m-width');
+    var isL = body.classList.contains('menu-l-width');
     // move buttons once, width has a distinct value
     if (isS && !isM && !isL) {
       moveAreaTopbarButtons('s');
@@ -1953,18 +1946,19 @@ ready(function () {
           isEmpty = !clone.innerHTML.trim();
         }
         button.querySelector('button').disabled = isEmpty;
+        button.querySelector('.btn').classList.toggle('interactive', !isEmpty);
         button.style.display = isEmpty && button.dataset.contentEmpty == 'hide' ? 'none' : 'inline-block';
       }
     });
   }
   function setWidthS(e) {
-    body.classList[e.matches ? 'add' : 'remove']('menu-width-s');
+    body.classList[e.matches ? 'add' : 'remove']('menu-s-width');
   }
   function setWidthM(e) {
-    body.classList[e.matches ? 'add' : 'remove']('menu-width-m');
+    body.classList[e.matches ? 'add' : 'remove']('menu-m-width');
   }
   function setWidthL(e) {
-    body.classList[e.matches ? 'add' : 'remove']('menu-width-l');
+    body.classList[e.matches ? 'add' : 'remove']('menu-l-width');
   }
   function onWidthChange(setWidth, e) {
     setWidth(e);
@@ -1991,12 +1985,12 @@ ready(function () {
 (function () {
   var body = document.querySelector('body');
   function setWidth(e) {
-    body.classList[e.matches ? 'add' : 'remove']('main-width-max');
+    body.classList[e.matches ? 'add' : 'remove']('main-max-width');
   }
   function onWidthChange(setWidth, e) {
     setWidth(e);
   }
-  var width = getColorValue('MAIN-WIDTH-MAX');
+  var width = getColorValue('MAIN-MAX-width');
   var mqm = window.matchMedia('screen and ( min-width: ' + width + ')');
   mqm.addEventListener('change', onWidthChange.bind(null, setWidth));
   setWidth(mqm);

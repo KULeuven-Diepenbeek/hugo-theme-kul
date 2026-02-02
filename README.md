@@ -39,7 +39,7 @@ The Relearn theme is an enhanced fork of the popular [Learn theme](https://githu
 
 - **Multilingual Support**
   - [Full right-to-left (RTL) language support](https://mcshelby.github.io/hugo-theme-relearn/configuration/sitemanagement/multilingual)
-  - [Extensive list of supported languages](https://mcshelby.github.io/hugo-theme-relearn/configuration/sitemanagement/multilingual): Arabic, Chinese (Simplified and Traditional), Czech, Dutch, English, Finnish, French, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Swahili, Turkish, Ukrainian, Vietnamese
+  - [Extensive list of supported languages](https://mcshelby.github.io/hugo-theme-relearn/configuration/sitemanagement/multilingual): Arabic, Chinese (Simplified and Traditional), Czech, Danish, Dutch, English, Finnish, French, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Swahili, Turkish, Ukrainian, Vietnamese
   - [Multilingual content search capabilities](https://mcshelby.github.io/hugo-theme-relearn/configuration/sidebar/search#mixed-language-support)
 
 - **Enhanced Markdown Features**
@@ -52,6 +52,7 @@ The Relearn theme is an enhanced fork of the popular [Learn theme](https://githu
 - **Rich Shortcode Library**
   - [Marker badges](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/badge)
   - [Flexible buttons](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/button)
+  - [Card-based content organization](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/card) and [card sets](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/cards)
   - [Child page listing](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/children)
   - [Expandable content areas](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/expand)
   - [Font Awesome icon integration](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/icon)
@@ -83,4 +84,4 @@ The Relearn theme is distributed under the [MIT License](https://github.com/McSh
 
 ## Credits
 
-This theme builds upon the work of [many contributors](https://mcshelby.github.io/hugo-theme-relearn/more/credits).
+This theme is built on the shoulders of [giants](https://mcshelby.github.io/hugo-theme-relearn/more/credits).

@@ -1,5 +1,18 @@
 <span class="github-buttons"></span>
-<p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+{{- $gen := "Hugo" }}
+{{- $ver := "Relearn" }}
+{{- $url := "https://github.com/McShelby/hugo-theme-relearn" }}
+{{- if ne site.Params.disableGeneratorVersion true }}
+  {{- $gen = print $gen " " (index (findRE `\d+\.\d+\.\d+` hugo.Generator) 0) }}
+  {{- $tag := partial "version.txt" }}
+  {{- $ver = print $ver " " $tag }}
+  {{- $url = printf "https://github.com/McShelby/hugo-theme-relearn/releases/tag/%s" $tag }}
+  {{- if in $ver "+" }}
+    {{- $commit := replaceRE "^.*\\+" "" $ver }}
+    {{- $url = printf "https://github.com/McShelby/hugo-theme-relearn/commit/%s" $commit }}
+  {{- end }}
+{{- end }}
+<p>Built with <a href="{{ $url }}" title="{{ print $ver }}"><i class="fas fa-fw fa-heart"></i></a> by <a href="https://gohugo.io/" title="{{ $gen }}">Hugo</a></p>
 {{- with resources.Get "/js/github-buttons/github-buttons.js" }}
 <script>
   function githubButtonsScheme(){
@@ -40,7 +53,7 @@
     setTimeout( githubButtonsInit, 400 );
   });
 </script>
-  {{- $assetBusting := partialCached "assetbusting.gotmpl" . }}
+  {{- $assetBusting := partialCached "assetbusting.gotmpl" site.Home }}
   {{- $minify := not hugo.IsServer }}
   {{- if and (isset site.Params "minify") (ne site.Params.minify "") }}
     {{- $minify = site.Params.minify }}

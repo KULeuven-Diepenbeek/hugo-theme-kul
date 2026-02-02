@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Právě si prohlížíte verzi {{.pageVersion.title}} této stránky. Aktuální verzi naleznete <a href="{{.latestUrl}}">tady</a>.'
+other = 'Tato stránka zobrazuje verzi {{.pageVersion.title}}. Aktuální verzi naleznete <a href="{{.latestUrl}}">tady</a>.'
 
 [Search]
 other = "Hledat"
@@ -61,9 +61,6 @@ other = "Více"
 [shortcuts-menuTitle]
 other = "Více"
 
-[Expand-title]
-other = "Rozbalit..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,16 +95,16 @@ other = "Tip"
 other = "Varování"
 
 [Copy-to-clipboard]
-other = "Kopírovat"
+other = "Kopírovat text do schránky"
 
 [Copied-to-clipboard]
-other = "Zkopírováno!"
+other = "Text zkopírován do schránky!"
 
 [Copy-link-to-clipboard]
-other = "Kopírovat odkaz"
+other = "Kopírovat odkaz do schránky"
 
 [Link-copied-to-clipboard]
-other = "Odkaz zkopírován!"
+other = "Odkaz zkopírován do schránky!"
 
 [Chapter]
 other = "Kapitola {{.}}"
@@ -138,3 +135,9 @@ other = "Kategorie"
 
 [Details]
 other = "Podrobnosti"
+
+[Version]
+other = "Verze"
+
+[Browser-unsupported-feature]
+other = "Tento prohlížeč nepodporuje tuto funkci"

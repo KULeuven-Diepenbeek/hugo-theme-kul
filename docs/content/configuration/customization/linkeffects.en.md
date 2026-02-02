@@ -21,7 +21,7 @@ linkEffects.target = false
 
 ## Configuration
 
-{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} You can change these settings in your `hugo.toml` and add arbitrary custom effects as boolean values (like `bg-white` in the below snippet).
+{{% badge style="option" %}}Option{{% /badge %}} You can change these settings in your `hugo.toml` and add arbitrary custom effects as boolean values (like `bg-white` in the below snippet).
 
 {{< multiconfig file=hugo section=params >}}
 linkEffects.bg-white = true
@@ -41,7 +41,7 @@ linkEffects.target = '_blank'
 
 With this configuration in effect, the following URL
 
-````markdown {title="Markdown"}
+````md {title="Markdown"}
 [Magic in new window](images/magic.gif)
 ````
 

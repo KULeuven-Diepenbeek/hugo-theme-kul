@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = '이 페이지의 {{.pageVersion.title}} 버전을 읽고 계십니다. 현재 버전을 찾을 수 있습니다 <a href="{{.latestUrl}}">여기</a>.'
+other = '이 페이지는 {{.pageVersion.title}} 버전을 표시합니다. 현재 버전을 <a href="{{.latestUrl}}">여기서</a> 찾을 수 있습니다.'
 
 [Search]
 other = "검색"
@@ -61,9 +61,6 @@ other = "외부 링크"
 [shortcuts-menuTitle]
 other = "외부 링크"
 
-[Expand-title]
-other = "더 보기"
-
 [Navigation-toggle]
 other = "메뉴"
 
@@ -98,16 +95,16 @@ other = "도움말"
 other = "주의"
 
 [Copy-to-clipboard]
-other = "클립보드에 복사"
+other = "텍스트를 클립보드에 복사"
 
 [Copied-to-clipboard]
-other = "클립보드에 복사됐습니다!"
+other = "텍스트가 클립보드에 복사됐습니다!"
 
 [Copy-link-to-clipboard]
 other = "링크를 클립보드에 복사"
 
 [Link-copied-to-clipboard]
-other = "클립보드에 링크가 복사됐습니다!"
+other = "링크가 클립보드에 복사됐습니다!"
 
 [Chapter]
 other = "{{.}}장"
@@ -138,3 +135,9 @@ other = "카테고리"
 
 [Details]
 other = "세부 정보"
+
+[Version]
+other = "버전"
+
+[Browser-unsupported-feature]
+other = "이 브라우저는 이 기능을 지원하지 않습니다"

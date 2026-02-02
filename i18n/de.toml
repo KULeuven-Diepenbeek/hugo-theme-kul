@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Du liest gerade die Version {{.pageVersion.title}} dieser Seite. Die aktuelle Version finden Sie <a href="{{.latestUrl}}">hier</a>.'
+other = 'Diese Seite zeigt Version {{.pageVersion.title}}. Die aktuelle Version befindet sich <a href="{{.latestUrl}}">hier</a>.'
 
 [Search]
 other = "Suchen"
@@ -61,9 +61,6 @@ other = "Mehr"
 [shortcuts-menuTitle]
 other = "Mehr"
 
-[Expand-title]
-other = "Erweitere mich..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,10 +95,10 @@ other = "Tipp"
 other = "Warnung"
 
 [Copy-to-clipboard]
-other = "In Zwischenablage kopieren"
+other = "Text in Zwischenablage kopieren"
 
 [Copied-to-clipboard]
-other = "In Zwischenablage kopiert!"
+other = "Text in Zwischenablage kopiert!"
 
 [Copy-link-to-clipboard]
 other = "Link in Zwischenablage kopieren"
@@ -138,3 +135,9 @@ other = "Kategorie"
 
 [Details]
 other = "Details"
+
+[Version]
+other = "Version"
+
+[Browser-unsupported-feature]
+other = "Dieser Browser unterstützt diese Funktion nicht"

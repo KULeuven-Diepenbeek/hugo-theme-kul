@@ -2,7 +2,7 @@
 other = "rtl"
 
 [Versioning-warning]
-other = 'أنت تقرأ الإصدار {{.pageVersion.title}} من هذه الصفحة. يمكن العثور على الإصدار الحالي <a href="{{.latestUrl}}">هنا</a>.'
+other = 'تعرض هذه الصفحة الإصدار {{.pageVersion.title}}. يمكن العثور على الإصدار الحالي <a href="{{.latestUrl}}">هنا</a>.'
 
 [Search]
 other = "البحث"
@@ -61,9 +61,6 @@ other = "المزيد"
 [shortcuts-menuTitle]
 other = "المزيد"
 
-[Expand-title]
-other = "...قم بتوسيع"
-
 [Navigation-toggle]
 other = "قائمة"
 
@@ -98,10 +95,10 @@ other = "نصيحة"
 other = "تحذير"
 
 [Copy-to-clipboard]
-other = "نسخ إلى الحافظة"
+other = "نسخ النص إلى الحافظة"
 
 [Copied-to-clipboard]
-other = "نسخ إلى الحافظة!"
+other = "تم نسخ النص إلى الحافظة!"
 
 [Copy-link-to-clipboard]
 other = "نسخ الرابط إلى الحافظة"
@@ -138,3 +135,9 @@ other = "فئة"
 
 [Details]
 other = "التفاصيل"
+
+[Version]
+other = "إصدار"
+
+[Browser-unsupported-feature]
+other = "هذا المتصفح لا يدعم هذه الميزة"

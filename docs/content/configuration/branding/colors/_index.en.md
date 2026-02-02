@@ -33,7 +33,7 @@ The theme ships with the following set of variants
 
 ## Changing the Variant
 
-{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} Set the `themeVariant` option to change the variant.
+{{% badge style="option" %}}Option{{% /badge %}} Set the `themeVariant` option to change the variant.
 
 The theme offers the recommended [advanced configuration mode](#theme-variant-advanced) that combines the functionality for [multiple variants](#multiple-variants), [OS setting adjustments](#adjust-to-os-settings), and more.
 
@@ -107,13 +107,14 @@ themeVariant = [
 
 The `identifier` option is mandatory and equivalent to the string in the first example. Further options can be configured, see the table below.
 
-#### Parameter
+#### Parameters
 
 | Name                  | Default         | Notes       |
 |-----------------------|-----------------|-------------|
 | identifier            | _&lt;empty&gt;_ | Must correspond to the name of a color variant either in your site's or the theme's directory in the form `assets/css/theme-<IDENTIFIER>.css`. |
 | name                  | see notes       | The name to be displayed in the variant selector. If not set, the identifier is used in a human readable form. |
 | auto                  | _&lt;empty&gt;_ | If set, the variant is treated as an [auto mode variant](#adjust-to-os-settings). It has the same behavior as the `themeVariantAuto` option. The first entry in the array is the color variant for light mode, the second for dark mode. Defining auto mode variants with the advanced options has the benefit that you can now have multiple auto mode variants instead of just one with the simple options. |
+| logo                  | _&lt;empty&gt;_ | [Override for the default logo](configuration/branding/logo#variant-specific-logos) |
 
 #### Example Configuration
 
@@ -134,6 +135,10 @@ themeVariant = [
 
 ## Advanced Topics
 
+### Variant-specific Logos
+
+You can [override the default logo](configuration/branding/logo#variant-specific-logos) of a site for each variant.
+
 ### Modifying Variants
 
 In case you like a shipped variant but only want to tweak some aspects, you have some choices. **Don't edit the file in the theme's directory!** You will lose the ability to later easily upgrade your theme to a newer version.
@@ -153,8 +158,8 @@ In case you like a shipped variant but only want to tweak some aspects, you have
 
     :root {
       --CODE-theme: neon; /* name of the chroma stylesheet file */
-      --CODE-BLOCK-color: rgba( 226, 228, 229, 1 ); /* fallback color for code text */
-      --CODE-BLOCK-BG-color: rgba( 40, 42, 54, 1 ); /* fallback color for code background */
+      --CODE-BLOCK-color: rgba(226, 228, 229, 1); /* fallback color for code text */
+      --CODE-BLOCK-BG-color: rgba(40, 42, 54, 1); /* fallback color for code background */
     }
     ````
 

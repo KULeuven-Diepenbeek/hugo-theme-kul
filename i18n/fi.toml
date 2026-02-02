@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Luet tämän sivun versiota {{.pageVersion.title}}. Nykyinen versio löytyy <a href="{{.latestUrl}}">täällä</a>.'
+other = 'Tämä sivu näyttää version {{.pageVersion.title}}. Nykyinen versio löytyy <a href="{{.latestUrl}}">täällä</a>.'
 
 [Search]
 other = "Etsi"
@@ -61,9 +61,6 @@ other = "Lisää"
 [shortcuts-menuTitle]
 other = "Lisää"
 
-[Expand-title]
-other = "Laajenna..."
-
 [Navigation-toggle]
 other = "Valikko"
 
@@ -98,10 +95,10 @@ other = "Vihje"
 other = "Varoitus"
 
 [Copy-to-clipboard]
-other = "Kopioi leikepöydälle"
+other = "Kopioi teksti leikepöydälle"
 
 [Copied-to-clipboard]
-other = "Kopioitu leikepöydälle!"
+other = "Teksti kopioitu leikepöydälle!"
 
 [Copy-link-to-clipboard]
 other = "Kopioi linkki leikepöydälle"
@@ -138,3 +135,9 @@ other = "Kategoria"
 
 [Details]
 other = "Tiedot"
+
+[Version]
+other = "Versio"
+
+[Browser-unsupported-feature]
+other = "Tämä selain ei tue tätä ominaisuutta"

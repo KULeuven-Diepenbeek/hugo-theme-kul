@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'U leest versie {{.pageVersion.title}} van deze pagina. De huidige versie is te vinden <a href="{{.latestUrl}}">hier</a>.'
+other = 'Deze pagina toont versie {{.pageVersion.title}}. De huidige versie is te vinden <a href="{{.latestUrl}}">hier</a>.'
 
 [Search]
 other = "Zoeken"
@@ -61,9 +61,6 @@ other = "Snelkoppelingen"
 [shortcuts-menuTitle]
 other = "Snelkoppelingen"
 
-[Expand-title]
-other = "Lees meer..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,10 +95,10 @@ other = "Fooi"
 other = "Waarschuwing"
 
 [Copy-to-clipboard]
-other = "Naar klembord kopiëren"
+other = "Tekst naar klembord kopiëren"
 
 [Copied-to-clipboard]
-other = "Gekopieerd naar klembord!"
+other = "Tekst gekopieerd naar klembord!"
 
 [Copy-link-to-clipboard]
 other = "Link naar klembord kopiëren"
@@ -141,3 +138,9 @@ other = "Op deze pagina"
 
 [Details]
 other = "Details"
+
+[Version]
+other = "Versie"
+
+[Browser-unsupported-feature]
+other = "Deze browser ondersteunt deze functie niet"

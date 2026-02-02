@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'Anda sedang membaca versi {{.pageVersion.title}} dari halaman ini. Versi saat ini dapat ditemukan <a href="{{.latestUrl}}">sini</a>.'
+other = 'Halaman ini menampilkan versi {{.pageVersion.title}}. Versi saat ini dapat ditemukan <a href="{{.latestUrl}}">di sini</a>.'
 
 [Search]
 other = "Telusuri"
@@ -61,9 +61,6 @@ other = "Lainnya"
 [shortcuts-menuTitle]
 other = "Lainnya"
 
-[Expand-title]
-other = "Bentangkan..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,10 +95,10 @@ other = "Ujung"
 other = "Peringatan"
 
 [Copy-to-clipboard]
-other = "Salin ke clipboard"
+other = "Salin teks ke clipboard"
 
 [Copied-to-clipboard]
-other = "Disalin ke clipboard!"
+other = "Teks disalin ke clipboard!"
 
 [Copy-link-to-clipboard]
 other = "Salin link ke clipboard"
@@ -138,3 +135,9 @@ other = "Kategori"
 
 [Details]
 other = "Rincian"
+
+[Version]
+other = "Versi"
+
+[Browser-unsupported-feature]
+other = "Browser ini tidak mendukung fitur ini"

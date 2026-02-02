@@ -2,7 +2,7 @@
 other = "ltr"
 
 [Versioning-warning]
-other = 'You are reading version {{.pageVersion.title}} of this page. The current version can be found <a href="{{.latestUrl}}">here</a>.'
+other = 'This page shows version {{.pageVersion.title}}. The current version can be found <a href="{{.latestUrl}}">here</a>.'
 
 [Search]
 other = "Searrrch"
@@ -61,9 +61,6 @@ other = "Morrre"
 [shortcuts-menuTitle]
 other = "Morrre"
 
-[Expand-title]
-other = "Expand me..."
-
 [Navigation-toggle]
 other = "Menu"
 
@@ -98,16 +95,16 @@ other = "Smarrrt arrrse"
 other = "Arrr"
 
 [Copy-to-clipboard]
-other = "Copy t' clipboard"
+other = "Copy text t' clipboard"
 
 [Copied-to-clipboard]
-other = "Copied t' clipboard!"
+other = "Text copied t' clipboard!"
 
 [Copy-link-to-clipboard]
 other = "Copy link t' clipboard"
 
 [Link-copied-to-clipboard]
-other = "Copied link t' clipboard!"
+other = "Link copied t' clipboard!"
 
 [Chapter]
 other = "T' chapterrr {{.}}"
@@ -138,3 +135,9 @@ other = "Categorrry"
 
 [Details]
 other = "Details"
+
+[Version]
+other = "Verrrsion"
+
+[Browser-unsupported-feature]
+other = "This browserrr doesn't supporrrt this featurrre"
